@@ -26,7 +26,7 @@ class PainelUserController extends Controller
      */
     public function create(): View
     {
-        return view('painel.cadastrar');
+        return view('painel.cadastrar_usuario');
     }
 
     /**

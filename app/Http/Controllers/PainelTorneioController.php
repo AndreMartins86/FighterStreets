@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Campeonato;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class PainelTorneioController extends Controller
@@ -23,9 +24,12 @@ class PainelTorneioController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
-        //
+        $estados = DB::table('estados')->get();
+        $tipos = DB::table('tipos')->get();
+
+        return view('painel.cadastrar_torneio', compact('estados', 'tipos'));
     }
 
     /**
@@ -76,7 +80,7 @@ class PainelTorneioController extends Controller
 
         $final = $req->ate == null ? now() : $req->ate;
 
-        $campeonatos = Campeonato::where('name', 'LIKE', '%'.$req->name.'%')        
+        $campeonatos = Campeonato::where('titulo', 'LIKE', '%'.$req->name.'%')        
         ->where('status', $status)
         ->whereBetween('created_at', [$inicial, $final])
         ->get();

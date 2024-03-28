@@ -1,6 +1,6 @@
 @extends('app')
 @section('conteudo')
-@include('painel.layout.navpainel')
+    @include('painel.layout.navpainel')
 
     <div class="container-fluid">
         <div class="row">
@@ -8,7 +8,7 @@
             <div class="col-10">
                 <div class="row mb-3">
                     <div class="col-6">
-                        <h3>Usuários</h3>
+                        <h3>Campeonatos</h3>
                     </div>
                     <div class="col-6">
                         <button class="btn btn-primary" title="Exportar PDF"><svg xmlns="http://www.w3.org/2000/svg"
@@ -23,7 +23,8 @@
                                 <path
                                     d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V9H3V2a1 1 0 0 1 1-1h5.5zM3 12v-2h2v2zm0 1h2v2H4a1 1 0 0 1-1-1zm3 2v-2h3v2zm4 0v-2h3v1a1 1 0 0 1-1 1zm3-3h-3v-2h3zm-7 0v-2h3v2z" />
                             </svg></button>
-                        <a href="{{ route('painel-torneios.create') }}"><button class="btn btn-primary" title="Cadastrar usuário">+
+                        <a href="{{ route('painel-torneios.create') }}"><button class="btn btn-primary"
+                                title="Cadastrar usuário">+
                                 Cadastrar campeonato</button></a>
 
                     </div>
@@ -82,7 +83,8 @@
                                         <td>{{ $campeonato->getData() }}</td>
                                         <td>{{ $campeonato->getLocal() }}</td>
                                         <td>
-                                            <a href="{{ route('painel-torneios.show', ['painel_torneio' => $campeonato->id]) }}"><button
+                                            <a
+                                                href="{{ route('painel-torneios.show', ['painel_torneio' => $campeonato->id]) }}"><button
                                                     title="Detalhes"><svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                         height="16" fill="currentColor" class="bi bi-search"
                                                         viewBox="0 0 16 16">
@@ -90,7 +92,8 @@
                                                             d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
                                                     </svg></button></a>
 
-                                            <a href="{{ route('painel-torneios.edit', ['painel_torneio' => $campeonato->id]) }}"><button
+                                            <a
+                                                href="{{ route('painel-torneios.edit', ['painel_torneio' => $campeonato->id]) }}"><button
                                                     title="Editar"><svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                         height="16" fill="currentColor" class="bi bi-pencil"
                                                         viewBox="0 0 16 16">
@@ -98,7 +101,8 @@
                                                             d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
                                                     </svg></button></a>
 
-                                            <form action="{{ route('painel-torneios.destroy', ['painel_torneio' => $campeonato->id]) }}"
+                                            <form
+                                                action="{{ route('painel-torneios.destroy', ['painel_torneio' => $campeonato->id]) }}"
                                                 method="POST" style="display: inline; margin: 0; padding: 0;">
                                                 @csrf
                                                 @method('DELETE')
@@ -126,7 +130,7 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 
-@include('painel.layout.footer')
+    @include('painel.layout.footer')
 @endsection
