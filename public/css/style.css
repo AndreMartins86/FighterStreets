@@ -1,0 +1,67 @@
+body {
+	font-family: "Comic Sans MS", "Comic Sans", cursive !important;
+}
+
+#logo {
+	width: 40px;
+	height:41px;
+}
+
+#titulo {display: inline;}
+
+li button a:hover {
+	color: white !important;
+}
+
+#banner {
+	background: url('../img/streetfighter.png') no-repeat center; 
+	background-size: cover;
+}
+
+#banner h1 {
+	padding: 22.2vh;
+	font-size: 7vw;
+	color: DodgerBlue;
+}
+
+div .col-6  a { 
+	margin: 0 10px 0 10px;
+	color: black;
+}
+
+#bannerTorneios {
+	background-color: #0d6efd;
+}
+
+#bannerTorneios h2 {
+	background-color: #0d6efd;
+	padding: 10vh;
+	font-size: 3vw;
+	color: white;	
+}
+
+footer {
+	margin-top: 10vh !important; /* take available whitespace */
+    margin-bottom: -5px !important;      /* remove bottom whitespace */
+}
+
+.nav-item p {
+	cursor: pointer;
+}
+
+.col-3 p {
+	color: white;
+}
+
+p.disputa {
+	color: black;
+}
+
+li span{
+	display: block;
+}
+
+thead tr th {
+	color: white !important;	
+	background-color: #0d6efd !important;
+}

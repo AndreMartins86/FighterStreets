@@ -1,0 +1,86 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Campeonato;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
+
+class PainelTorneioController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(): View
+    {
+        $campeonatos = Campeonato::where('status', 1)
+        ->orderBy('data')
+        ->paginate(10);
+
+        return view('painel.painel_torneio', compact('campeonatos'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+
+    public function filtrarTorneio(Request $req): View
+    {
+        $status = $req->status == 1 ? 1 : 0;
+
+        $inicial = $req->de == null ? '1996-01-01' : $req->de;
+
+        $final = $req->ate == null ? now() : $req->ate;
+
+        $campeonatos = Campeonato::where('name', 'LIKE', '%'.$req->name.'%')        
+        ->where('status', $status)
+        ->whereBetween('created_at', [$inicial, $final])
+        ->get();
+
+        return view('painel.painel', compact('campeonatos'));        
+    }
+}
