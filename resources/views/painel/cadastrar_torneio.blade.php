@@ -15,8 +15,27 @@
                 </div>
             </div>
 
-            <form action="{{ route('painel-torneios.store') }}" method="POST">
+            <h3>{{ route('painel-torneios.store') }}</h3>
+
+            <form action="{{ route('painel-torneios.store') }}" method="POST" enctype="multipart/form-data" id="form">
                 @csrf
+                <div class="container-fluid" id="box-container">
+                    <div class="row">
+                        <div class="col-12" id="botoes">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div id="preview-crop"></div>                            
+                        </div>
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="mb-3">
+                        <label for="avatar-imagem" class="form-label">Banner Torneio</label>                        
+                        <input class="form-control" type="file" id="avatar-imagem" name="imagem">
+                    </div>                  
+                </div>
                 <div class="row">
                     <div class="col-3 my-1">
                         <label for="titulo" class="form-label">Titulo:</label>
@@ -38,7 +57,7 @@
                         <label for="estado" class="form-label">Estado:</label>
                     </div>
                     <div class="col-9 my-1">
-                        <select class="form-select">
+                        <select class="form-select" name="estado_id">
                             <option selected>UF</option>
                             @foreach ($estados as $UF )                            
                             <option value="{{ $UF->id }}">{{ $UF->nome }}</option>
@@ -60,7 +79,7 @@
                         <label for="tipo" class="form-label">Tipo: </label>
                     </div>
                     <div class="col-9 my-1">
-                        <select class="form-select">                            
+                        <select class="form-select" name="tipo_id"> 
                             @foreach ($tipos as $tipo )                            
                             <option value="{{ $tipo->id }}">{{ $tipo->tipo }}</option>
                                 
@@ -68,14 +87,14 @@
                           </select>
                     </div>
                 </div>
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-3 my-1">
                         <label for="data" class="form-label">Data do evento:</label>
                     </div>
                     <div class="col-9 my-1">
                         <input type="date" name="data" id="data" class="form-control" value="24/03/2024">
                     </div>
-                </div>
+                </div> --}}
                 <div class="row">
                     <div class="col-3 my-1">
                         <label for="ginasio" class="form-label">Ginásio: </label>
@@ -98,11 +117,11 @@
                 </div>
                 <div class="row my-1">
                     <div class="col-12">
-                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        <button type="button" class="btn btn-primary" id="submit">Cadastrar</button>
                     </div>
                 </div>
-
             </form>
+            
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -112,10 +131,14 @@
                     </ul>
                 </div>
             @endif
+            
         </div>
     </div>
 </div>
-</div>
 
 @include('painel.layout.footer')
+
+@push('crop')
+<script src="/js/crop.js"></script>        
+@endpush
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TorneioRequest;
 use App\Models\Campeonato;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,9 +36,34 @@ class PainelTorneioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TorneioRequest $req)
     {
-        //
+        //dd($req->arquivo);
+        $campeonatoDados = $req->validated();
+
+        $campeonato = new Campeonato();
+        $campeonato->fill($campeonatoDados);
+
+        $caminhoPasta = public_path('uploads/');
+        $imagem_parts = explode(";base64,", $req->arquivo);           
+        $imagem_base64 = base64_decode($imagem_parts[1]); 
+        $nomeImagem = uniqid() . '.png'; 
+        $caminhoCompletoImagem = $caminhoPasta.$nomeImagem;
+        $caminhoImagem = "/uploads/".$nomeImagem;
+ 
+        file_put_contents($caminhoCompletoImagem, $imagem_base64);
+
+        $campeonato->imagem = $caminhoImagem;
+        $campeonato->fase_id = 1;
+        $campeonato->status = 1;
+
+        unset($campeonato['arquivo']);
+
+        $campeonato->save();
+
+        session()->flash('msg', 'Campeonato Cadastrado');
+
+        return response()->json(['success'=>'Cadastrado', 'url' => route('painel-torneios.index')]);
     }
 
     /**

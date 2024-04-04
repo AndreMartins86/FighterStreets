@@ -64,6 +64,13 @@
                     </div>
 
                 </form>
+
+                @if (session()->has('msg'))
+                    <div class="alert alert-success">
+                       <p>{{ session()->get('msg') }}</p>
+                    </div>
+                @endif
+
                 <div class="row my-4">
                     <div class="col-12">
                         <table class="table table-striped table-hover">
@@ -118,12 +125,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        @if (session()->has('msg'))
-                            <div class="alert alert-success">
-                                <p>{{ session()->get('msg') }}</p>
-                            </div>
-                        @endif
-
+                                          
                         {{ $campeonatos->links() }}
 
                     </div>

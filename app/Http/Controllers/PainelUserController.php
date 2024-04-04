@@ -73,7 +73,7 @@ class PainelUserController extends Controller
      */
     public function update(UserRequest $req, User $painel_usuario): RedirectResponse
     {
-        $atualizado = $req->validated();        
+        $atualizado = $req->validated();       
 
         $painel_usuario->fill($atualizado);        
         $painel_usuario->password = Hash::make($atualizado['password']);
