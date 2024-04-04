@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TorneioRequest;
 use App\Models\Campeonato;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
@@ -36,7 +37,7 @@ class PainelTorneioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(TorneioRequest $req)
+    public function store(TorneioRequest $req): JsonResponse
     {
         //dd($req->arquivo);
         $campeonatoDados = $req->validated();
@@ -69,9 +70,11 @@ class PainelTorneioController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id): View
     {
-        //
+        $camp = Campeonato::find($id);
+
+        return view('painel.mostrar_torneio', compact('camp'));
     }
 
     /**
@@ -79,7 +82,9 @@ class PainelTorneioController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $camp = Campeonato::find($id);
+
+        return view('painel.editar_torneio', compact('camp'));
     }
 
     /**
