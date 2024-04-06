@@ -40,54 +40,111 @@
                 </div>
 
                 <div class="col-6 text-end">
-                    <button class="btn btn-primary">Voltar</button>                    
+                    <a href="{{ url()->previous() }}"><button class="btn btn-primary">Voltar</button></a>
                 </div>
 
             </div>
+            <h3>{{ route('painel-torneios.update', ['painel_torneio' => $camp->id]) }}</h3>
 
             <div class="row">
-                <form action="{{ route('painel-usuarios.update', ['painel_usuario' => $user->id]) }}" method="POST">
+                <form action="{{ route('painel-torneios.update', ['painel_torneio' => $camp->id]) }}" method="POST" enctype="multipart/form-data" id="form">
                     @csrf
-                    @method('PUT')
-                    <div class="row my-1">
-                        <div class="col-3">
-                            <label for="name" class="form-label">Usuário:</label>
-                        </div>
-                        <div class="col-9">
-                            <input type="text" name="name" id="name" class="form-control" value="{{ $user->name }}">
-                        </div>
-                    </div>
-                    <div class="row mb-1">
-                        <div class="col-3">
-                            <label for="email" class="form-label">Email:</label>
-                        </div>
-                        <div class="col-9">
-                            <input type="email" name="email" id="email" class="form-control" value="{{ $user->email }}">
-                        </div>
-                    </div>
-                    <div class="row mb-1">
-                        <div class="col-3">
-                            <label for="password" class="form-label">Senha:</label>
-                        </div>
-                        <div class="col-9">
-                            <input type="password" name="password" id="password" class="form-control">
-                        </div>
-                    </div>
-                    <div class="row mb-1">
-                        <div class="col-3">
-                            <label for="password_confirmation" class="form-label">Confirmar senha:</label>
-                        </div>
-                        <div class="col-9">
-                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
-                        </div>
-                    </div>
                     
+                    <div class="container-fluid" id="box-container">
+                        <input type="text" name="id" id="id" value="{{ $camp->id }}" hidden>
+                        <div class="row">
+                            <div class="col-12" id="botoes">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div id="preview-crop"></div>                            
+                            </div>
+                        </div>                    
+                    </div>
                     <div class="row">
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Atualizar</button>
+                        <div class="mb-3">
+                            <label for="avatar-imagem" class="form-label">Banner Torneio</label>                        
+                            <input class="form-control" type="file" id="avatar-imagem" name="imagem">
+                        </div>                  
+                    </div>
+                    <div class="row">
+                        <div class="col-3 my-1">
+                            <label for="titulo" class="form-label">Titulo:</label>
+                        </div>
+                        <div class="col-9 my-1">
+                            <input type="text" name="titulo" id="titulo" class="form-control" value="{{ $camp->titulo }}">
                         </div>
                     </div>
-    
+                    <div class="row">
+                        <div class="col-3 my-1">
+                            <label for="cidade" class="form-label">Cidade:</label>
+                        </div>
+                        <div class="col-9 my-1">
+                            <input type="text" name="cidade" id="cidade" class="form-control" value="{{ $camp->cidade }}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3 my-1">
+                            <label for="estado" class="form-label">Estado:</label>
+                        </div>
+                        <div class="col-9 my-1">
+                            <select class="form-select" name="estado_id" id="estado_id">
+                                <option selected>{{ $camp->getEstado() }}</option>
+                                @foreach ($estados as $UF )                            
+                                <option value="{{ $UF->id }}">{{ $UF->nome }}</option>
+                                    
+                                @endforeach                            
+                              </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3 my-1">
+                            <label for="data" class="form-label">Data do evento:</label>
+                        </div>
+                        <div class="col-9 my-1">
+                            <input type="date" name="data" id="data" class="form-control" value="{{ $camp->data }}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3 my-1">
+                            <label for="tipo" class="form-label">Tipo: </label>
+                        </div>
+                        <div class="col-9 my-1">
+                            <select class="form-select" name="tipo_id" id="tipo_id">
+                                <option selected>{{ $camp->getTipo() }}</option>
+                                @foreach ($tipos as $tipo )                            
+                                <option value="{{ $tipo->id }}">{{ $tipo->tipo }}</option>
+                                    
+                                @endforeach                            
+                              </select>
+                        </div>
+                    </div>                  
+                    <div class="row">
+                        <div class="col-3 my-1">
+                            <label for="ginasio" class="form-label">Ginásio: </label>
+                        </div>
+                        <div class="col-9 my-1">
+                            <input type="text" name="ginasio" id="ginasio" class="form-control" value="{{ $camp->ginasio }}">
+                        </div>
+                    </div>
+                    <div class="row">                    
+                        <div class="form-floating my-1">
+                            <textarea class="form-control" placeholder="Sobre" name="sobre" id="sobre">{{ $camp->sobre }}</textarea>
+                            <label for="sobre">Sobre </label>
+                          </div>
+                    </div>
+                    <div class="row">                    
+                        <div class="form-floating my-1">
+                            <textarea class="form-control" placeholder="Informações" name="informacoes" id="informacoes">{{ $camp->informacoes }}</textarea>
+                            <label for="informacoes">Informações </label>
+                          </div>
+                    </div>
+                    <div class="row my-1">
+                        <div class="col-12">
+                            <button type="button" class="btn btn-primary" id="submit">Editar</button>
+                        </div>
+                    </div>
                 </form>
                 @if ($errors->any())
                 <div class="alert alert-danger">
@@ -105,5 +162,9 @@
 </div>
 
 @include('painel.layout.footer')
+
+@push('crop')
+<script src="/js/crop.js"></script>        
+@endpush
 
 @endsection

@@ -11,7 +11,7 @@
                     <h3>Cadastrar Campeonato</h3>
                 </div>
                 <div class="col-6 text-end">
-                    <a href="{{ route('painel-torneios.index') }}"><button class="btn btn-primary">< Voltar</button></a>                    
+                    <a href="{{ url()->previous() }}"><button class="btn btn-primary">Voltar</button></a>
                 </div>
             </div>
 
@@ -71,7 +71,7 @@
                         <label for="data" class="form-label">Data do evento:</label>
                     </div>
                     <div class="col-9 my-1">
-                        <input type="date" name="data" id="data" class="form-control" value="24/03/2024">
+                        <input type="date" name="data" id="data" class="form-control" value="">
                     </div>
                 </div>
                 <div class="row">
@@ -87,14 +87,8 @@
                           </select>
                     </div>
                 </div>
-                {{-- <div class="row">
-                    <div class="col-3 my-1">
-                        <label for="data" class="form-label">Data do evento:</label>
-                    </div>
-                    <div class="col-9 my-1">
-                        <input type="date" name="data" id="data" class="form-control" value="24/03/2024">
-                    </div>
-                </div> --}}
+             
+                
                 <div class="row">
                     <div class="col-3 my-1">
                         <label for="ginasio" class="form-label">Ginásio: </label>
@@ -117,7 +111,7 @@
                 </div>
                 <div class="row my-1">
                     <div class="col-12">
-                        <button type="button" class="btn btn-primary" id="submit">Cadastrar</button>
+                        <button type="submit" class="btn btn-primary" id="submit">Cadastrar</button>
                     </div>
                 </div>
             </form>

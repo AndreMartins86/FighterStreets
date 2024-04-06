@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Validator;
 
 class PainelTorneioController extends Controller
 {
@@ -37,17 +38,25 @@ class PainelTorneioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(TorneioRequest $req): JsonResponse
+    public function store(Request $req)
     {
-        //dd($req->arquivo);
-        $campeonatoDados = $req->validated();
+        $validador = Validator::make($req->all(), $this->regras());
+        
+        if ($validador->fails()) {
+
+          return response()->json(['errors'=>$validador->errors()]);
+
+        }
+        
+        $campeonatoDados = $validador->safe()->except(['extension']);
+        
 
         $campeonato = new Campeonato();
         $campeonato->fill($campeonatoDados);
 
         $caminhoPasta = public_path('uploads/');
-        $imagem_parts = explode(";base64,", $req->arquivo);           
-        $imagem_base64 = base64_decode($imagem_parts[1]); 
+        $imagem_partes = explode(";base64,", $req->arquivo);           
+        $imagem_base64 = base64_decode($imagem_partes[1]); 
         $nomeImagem = uniqid() . '.png'; 
         $caminhoCompletoImagem = $caminhoPasta.$nomeImagem;
         $caminhoImagem = "/uploads/".$nomeImagem;
@@ -64,7 +73,7 @@ class PainelTorneioController extends Controller
 
         session()->flash('msg', 'Campeonato Cadastrado');
 
-        return response()->json(['success'=>'Cadastrado', 'url' => route('painel-torneios.index')]);
+        return response()->json(['success'=>'Cadastrado', 'link' => route('painel-torneios.index')]);
     }
 
     /**
@@ -82,17 +91,20 @@ class PainelTorneioController extends Controller
      */
     public function edit(string $id)
     {
+        $estados = DB::table('estados')->get();
+        $tipos = DB::table('tipos')->get();
+        
         $camp = Campeonato::find($id);
 
-        return view('painel.editar_torneio', compact('camp'));
+        return view('painel.editar_torneio', compact('camp', 'estados','tipos'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $req, String $id): JsonResponse
     {
-        //
+        return response()->json(['success'=>'editado']);
     }
 
     /**
@@ -118,4 +130,22 @@ class PainelTorneioController extends Controller
 
         return view('painel.painel', compact('campeonatos'));        
     }
+
+    private function regras(): Array
+    {
+        return [
+            'titulo' => 'required|min:3|max:150',
+            'arquivo' => 'required',
+            'cidade' => 'required|min:3|max:150',
+            'data' => 'required|date',
+            'tipo_id' => 'required|integer|numeric',
+            'ginasio' => 'required|min:3|max:150',
+            'sobre' => 'required|min:3|max:150',
+            'informacoes' => 'required|min:3|max:150',
+            'estado_id' => 'required|integer|numeric'   
+        ];
+        
+    }
+
+   
 }
