@@ -15,7 +15,21 @@
                 </div>
             </div>
 
-            <h3>{{ route('painel-torneios.store') }}</h3>
+            {{-- <h3>{{ route('painel-torneios.store') }}</h3> --}}
+
+            <div class="alert alert-danger" id="erros">
+                <ul id="listaErros"></ul>
+            </div>
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <form action="{{ route('painel-torneios.store') }}" method="POST" enctype="multipart/form-data" id="form">
                 @csrf
@@ -115,17 +129,7 @@
                     </div>
                 </div>
             </form>
-            
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            
+
         </div>
     </div>
 </div>

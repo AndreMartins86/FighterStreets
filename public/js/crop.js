@@ -4,6 +4,52 @@ const extensions = {
     'image/jpg': 'jpg'
 };
 
+function validacaoResposta(erros) {
+    console.log(erros);
+    const divErros = document.getElementById('erros');
+    const listaErros = document.getElementById('listaErros');    
+    let tam = 0;
+    let vErros = [];
+    let vErrosAux = [];
+    let aux = "";
+
+    try {
+
+        for (const [chave, valor] of Object.entries(erros.errors)) {
+            //console.log(`${key}: ${valor}`);
+            
+            aux = `${valor}`;
+
+            if (aux.indexOf(",") == -1) {
+                vErros.push(`${valor}`);
+                aux = "";
+                
+            } else {
+                vErrosAux = aux.split(",");
+                vErros = vErros.concat(vErrosAux);
+
+                vErrosAux = [];
+                aux = "";
+            }
+          }
+
+          tam = vErros.length;
+
+            for (let i = 0; i < tam; i++) {
+                const item = document.createElement('li');
+                item.innerHTML = vErros[i];
+                listaErros.appendChild(item);
+            }
+        
+     
+        divErros.style.display = 'block';
+        document.documentElement.scrollTop = 0;
+        
+    } catch (err) {
+        console.log("Descrição erro: " + err);        
+    }
+}
+
 function criarBotao(conteudo) {
     const btn = document.createElement('button');
     btn.textContent = conteudo;
@@ -25,6 +71,7 @@ const id = document.getElementById('id');
 const caixa = document.getElementById('botoes');
 const form = document.getElementById('form');
 const submitBotao = document.getElementById('submit');
+
 const imagemPreview = document.createElement('img');
 
 
@@ -96,16 +143,25 @@ imagemAvatar.addEventListener('change', e => {
 
                             formData.delete("imagem");
 
-                            const response = await fetch("http://127.0.0.1:8000/painel-torneios", {
+                            const resposta = await fetch("http://127.0.0.1:8000/painel-torneios", {
                                 method: 'POST',
                                 body: formData
                             });
 
-                            const url = await response.json();                          
+                            resposta.json().then((dados) => {
+                                console.log('Aqui 1 ===>' + dados);
 
-                            if (response.status == 200) {
-                                window.location.replace(url.link);
-                            }
+                                if (dados.success != null){
+                                    window.location.replace(dados.link);
+                                } else {
+                                    validacaoResposta(dados);
+                                }
+
+                            });
+
+                            // if (response.status == 200) {
+                            //     window.location.replace(resposta.link);
+                            // }
                         }
 
                     } catch (err) {
@@ -114,7 +170,7 @@ imagemAvatar.addEventListener('change', e => {
                 }
                 );
             }
-        });
+        });////
     }
 });
 

@@ -77,7 +77,7 @@ class Campeonato extends Model
 
         $estado = $this->getEstado();
 
-        return $cidade . '-' . $estado;
+        return $cidade . ' - ' . $estado;
         
     }
 

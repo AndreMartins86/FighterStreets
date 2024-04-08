@@ -87,3 +87,7 @@ thead tr th {
 	margin-right: 10px;
 	overflow: hidden;
 }
+
+#erros {
+	display: none;
+}

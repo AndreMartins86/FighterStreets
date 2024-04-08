@@ -38,13 +38,13 @@ class PainelTorneioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $req)
+    public function store(Request $req): JsonResponse
     {
         $validador = Validator::make($req->all(), $this->regras());
         
         if ($validador->fails()) {
 
-          return response()->json(['errors'=>$validador->errors()]);
+          return response()->json(['errors' => $validador->errors()]);
 
         }
         
@@ -134,9 +134,9 @@ class PainelTorneioController extends Controller
     private function regras(): Array
     {
         return [
-            'titulo' => 'required|min:3|max:150',
+            'titulo' => 'required|min:3|max:100',
             'arquivo' => 'required',
-            'cidade' => 'required|min:3|max:150',
+            'cidade' => 'required|min:3|max:100',
             'data' => 'required|date',
             'tipo_id' => 'required|integer|numeric',
             'ginasio' => 'required|min:3|max:150',
