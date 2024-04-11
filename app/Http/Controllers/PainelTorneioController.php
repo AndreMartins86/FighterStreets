@@ -102,10 +102,42 @@ class PainelTorneioController extends Controller
      */
     public function update(Request $req, String $id): JsonResponse
     {
+        //dd($req->titulo);
+        $validador = Validator::make($req->all(), $this->regras());       
         
+        if ($validador->fails()) {
 
-        return response()->json(['success'=>'Atualizado', 'link' => route('painel-torneios.index')]);
+          return response()->json(['errors' => $validador->errors()]);
+
+        }
         
+        $campeonatoDados = $validador->safe()->except(['extension']);        
+
+        $campeonato = Campeonato::find($id);
+
+        $deletarArq = substr($campeonato->imagem, 9);
+        Storage::disk('public')->delete($deletarArq);
+
+        $campeonato->fill($campeonatoDados);        
+        $imagem_partes = explode(";base64,", $req->arquivo);
+        $imagem_base64 = base64_decode($imagem_partes[1]);
+        $nomeImagem = uniqid() . '.png';
+        $caminhoImagem = '/uploads/' . $nomeImagem;       
+
+        //Storage::put($nomeImagem, $imagem_base64);        
+        Storage::disk('public')->put($nomeImagem, $imagem_base64);
+
+        $campeonato->imagem = $caminhoImagem;
+        $campeonato->fase_id = 1;
+        $campeonato->status = 1;
+
+        unset($campeonato['arquivo']);
+
+        $campeonato->save();
+
+        session()->flash('msg', 'Campeonato Atualizado');
+
+        return response()->json(['success'=>'Atualizado', 'link' => route('painel-torneios.index')]);        
     }
 
     /**

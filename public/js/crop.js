@@ -130,7 +130,7 @@ imagemAvatar.addEventListener('change', e => {
 
                     try {
 
-                        const currentUrl = window.location.href;
+                        const urlAtual = window.location.href;
                         const formData = new FormData(form);
 
                         const reader = new FileReader();
@@ -143,25 +143,46 @@ imagemAvatar.addEventListener('change', e => {
 
                             formData.delete("imagem");
 
-                            const resposta = await fetch("http://127.0.0.1:8000/painel-torneios", {
-                                method: 'POST',
-                                body: formData
-                            });
+                            if (urlAtual == 'http://127.0.0.1:8000/painel-torneios/create') {
 
-                            resposta.json().then((dados) => {
-                                console.log('Aqui 1 ===>' + dados);
-
-                                if (dados.success != null){
-                                    window.location.replace(dados.link);
-                                } else {
-                                    validacaoResposta(dados);
-                                }
-
-                            });
-
-                            // if (response.status == 200) {
-                            //     window.location.replace(resposta.link);
-                            // }
+                                const resposta = await fetch("http://127.0.0.1:8000/painel-torneios", {
+                                    method: 'POST',
+                                    body: formData
+                                });
+    
+                                resposta.json().then((dados) => {                                
+    
+                                    if (dados.success != null){
+                                        window.location.replace(dados.link);
+                                    } else {
+                                        validacaoResposta(dados);
+                                    }
+    
+                                });
+                                
+                            } else {    
+                                const token = document.querySelector('meta[name="csrf-token"]').content;
+                                const id = urlAtual.split('/');                                
+                                const urlEditar = "http://127.0.0.1:8000/painel-torneios/" + id[4];
+                                const resposta = await fetch(urlEditar, {
+                                    method: 'POST',
+                                    headers: {
+                                        "X-CSRF-TOKEN": token                                        
+                                    },                                
+                                    body: formData
+                                });
+    
+                                resposta.json().then((dados) => {                                
+    
+                                    if (dados.success != null){
+                                        window.location.replace(dados.link);
+                                    } else {
+                                        validacaoResposta(dados);
+                                    }
+    
+                                });
+                                
+                            }                           
                         }
 
                     } catch (err) {

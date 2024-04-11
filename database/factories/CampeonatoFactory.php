@@ -56,7 +56,7 @@ class CampeonatoFactory extends Factory
             'imagem' => $imagem[rand(0, 3)],
             'cidade' => $cidades[rand(0 , 4)],
             'estado_id' => rand(1, 27),
-            'data' => fake()->dateTimeBetween('-6 months', 'now'),
+            'data' => fake()->dateTimeBetween('now', '+3 months'),
             'sobre' => fake()->text(),
             'informacoes' => fake()->text(),
             'ginasio' => ucwords(fake()->word()),

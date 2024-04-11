@@ -42,14 +42,18 @@
                 <div class="col-6 text-end">
                     <a href="{{ url()->previous() }}"><button class="btn btn-primary">Voltar</button></a>
                 </div>
-
             </div>
             <h3>{{ route('painel-torneios.update', ['painel_torneio' => $camp->id]) }}</h3>
+            <h3>{{ route('painel-torneios.show', ":id") }}</h3>
+            <div class="alert alert-danger" id="erros">
+                <ul id="listaErros"></ul>
+            </div>
 
             <div class="row">
                 <form action="{{ route('painel-torneios.update', ['painel_torneio' => $camp->id]) }}" method="POST" enctype="multipart/form-data" id="form">
+                    @method('PUT')                    
                     @csrf
-                    
+                                        
                     <div class="container-fluid" id="box-container">
                         <input type="text" name="id" id="id" value="{{ $camp->id }}" hidden>
                         <div class="row">
@@ -89,11 +93,14 @@
                             <label for="estado" class="form-label">Estado:</label>
                         </div>
                         <div class="col-9 my-1">
-                            <select class="form-select" name="estado_id" id="estado_id">
-                                <option selected>{{ $camp->getEstado() }}</option>
-                                @foreach ($estados as $UF )                            
+                            <select class="form-select" name="estado_id" id="estado_id">                                
+                                @foreach ($estados as $UF )
+                                @if ($UF->sigla == $camp->getEstado())
+                                <option selected value="{{ $UF->id }}">{{ $UF->nome }}</option>                                    
+                                @else
                                 <option value="{{ $UF->id }}">{{ $UF->nome }}</option>
                                     
+                                @endif                                    
                                 @endforeach                            
                               </select>
                         </div>
@@ -112,10 +119,14 @@
                         </div>
                         <div class="col-9 my-1">
                             <select class="form-select" name="tipo_id" id="tipo_id">
-                                <option selected>{{ $camp->getTipo() }}</option>
-                                @foreach ($tipos as $tipo )                            
+
+                                @foreach ($tipos as $tipo )
+                                @if ($tipo->tipo == $camp->getTipo())
+                                <option selected value="{{ $tipo->id }}">{{ $tipo->tipo }}</option>
+                                @else
                                 <option value="{{ $tipo->id }}">{{ $tipo->tipo }}</option>
                                     
+                                @endif
                                 @endforeach                            
                               </select>
                         </div>
