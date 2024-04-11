@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class PainelTorneioController extends Controller
 {
@@ -39,7 +40,7 @@ class PainelTorneioController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $req): JsonResponse
-    {
+    {        
         $validador = Validator::make($req->all(), $this->regras());
         
         if ($validador->fails()) {
@@ -48,20 +49,17 @@ class PainelTorneioController extends Controller
 
         }
         
-        $campeonatoDados = $validador->safe()->except(['extension']);
-        
+        $campeonatoDados = $validador->safe()->except(['extension']);        
 
         $campeonato = new Campeonato();
-        $campeonato->fill($campeonatoDados);
+        $campeonato->fill($campeonatoDados);        
+        $imagem_partes = explode(";base64,", $req->arquivo);
+        $imagem_base64 = base64_decode($imagem_partes[1]);
+        $nomeImagem = uniqid() . '.png';
+        $caminhoImagem = '/uploads/' . $nomeImagem;
 
-        $caminhoPasta = public_path('uploads/');
-        $imagem_partes = explode(";base64,", $req->arquivo);           
-        $imagem_base64 = base64_decode($imagem_partes[1]); 
-        $nomeImagem = uniqid() . '.png'; 
-        $caminhoCompletoImagem = $caminhoPasta.$nomeImagem;
-        $caminhoImagem = "/uploads/".$nomeImagem;
- 
-        file_put_contents($caminhoCompletoImagem, $imagem_base64);
+        //Storage::put($nomeImagem, $imagem_base64);        
+        Storage::disk('public')->put($nomeImagem, $imagem_base64);
 
         $campeonato->imagem = $caminhoImagem;
         $campeonato->fase_id = 1;
@@ -104,7 +102,10 @@ class PainelTorneioController extends Controller
      */
     public function update(Request $req, String $id): JsonResponse
     {
-        return response()->json(['success'=>'editado']);
+        
+
+        return response()->json(['success'=>'Atualizado', 'link' => route('painel-torneios.index')]);
+        
     }
 
     /**

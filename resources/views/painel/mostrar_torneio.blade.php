@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">                    
-                    <img src="{{ $camp->imagem }}" class="img-fluid" alt="Banner">
+                <img src="{{ $camp->imagem }}" class="img-fluid" alt="Banner">
             </div>
         </div>
         <div class="row">
