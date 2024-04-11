@@ -6,10 +6,12 @@ use App\Http\Requests\TorneioRequest;
 use App\Models\Campeonato;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+
 
 class PainelTorneioController extends Controller
 {
@@ -87,7 +89,7 @@ class PainelTorneioController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id): View
     {
         $estados = DB::table('estados')->get();
         $tipos = DB::table('tipos')->get();
@@ -143,17 +145,24 @@ class PainelTorneioController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
-        //
+        $campeonato = Campeonato::find($id);
+
+        $deletarArq = substr($campeonato->imagem, 9);
+        Storage::disk('public')->delete($deletarArq);
+        
+        $campeonato->delete();
+        session()->flash('msg', 'Campeonato Deletado');
+
+        return redirect()->route('painel-torneios.index');
+
     }
 
     public function filtrarTorneio(Request $req): View
     {
         $status = $req->status == 1 ? 1 : 0;
-
         $inicial = $req->de == null ? '1996-01-01' : $req->de;
-
         $final = $req->ate == null ? now() : $req->ate;
 
         $campeonatos = Campeonato::where('titulo', 'LIKE', '%'.$req->name.'%')        
@@ -176,9 +185,7 @@ class PainelTorneioController extends Controller
             'sobre' => 'required|min:3|max:150',
             'informacoes' => 'required|min:3|max:150',
             'estado_id' => 'required|integer|numeric'   
-        ];
-        
+        ];        
     }
-
    
 }

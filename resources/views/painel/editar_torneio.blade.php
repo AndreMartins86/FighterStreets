@@ -1,5 +1,8 @@
 @extends('app')
 @section('conteudo')
+@push('meta')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+@endpush
 @include('painel.layout.navpainel')
 
 <div class="container-fluid">
@@ -166,10 +169,8 @@
                     </ul>
                 </div>
             @endif
-            </div>
-            
+            </div>            
         </div>
-
 </div>
 
 @include('painel.layout.footer')
