@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TorneioRequest;
+//use App\Http\Requests\TorneioRequest;
 use App\Models\Campeonato;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;

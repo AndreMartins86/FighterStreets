@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Campeonato;
-use Database\Factories\CampeonatoFactory;
 use Illuminate\Support\Facades\DB;
 
 
@@ -18,7 +17,15 @@ class HomeController extends Controller
         ->take(4)
         ->get();
 
-        return view('home', compact('campeonatos'));        
+        $destaques = DB::table('campeonatos')
+            ->join('destaques','campeonatos.id', '=', 'destaques.campeonato_id')
+            ->join('estados','campeonatos.estado_id', '=', 'estados.id')
+            ->join('fases','campeonatos.fase_id', '=', 'fases.id')
+            ->join('tipos','campeonatos.tipo_id', '=', 'tipos.id')
+            ->selectRaw('destaques.posicao, campeonatos.id as "id", titulo, imagem, fases.fase, tipos.tipo, DATE_FORMAT(campeonatos.data, "%d/%m/%Y") as "data", cidade, estados.sigla')
+            ->get();
+
+        return view('home', compact('campeonatos', 'destaques'));
     }
 
     public function detalhes (Campeonato $campeonato, string $slug): View
