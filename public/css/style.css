@@ -100,3 +100,7 @@ thead tr th {
 .arrastando {
 	opacity: 0.5;
 }
+
+button[onclick="resetarDestaques()"] {
+	margin-bottom: 3px;
+}
