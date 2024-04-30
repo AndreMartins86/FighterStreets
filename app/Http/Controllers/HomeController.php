@@ -17,6 +17,13 @@ class HomeController extends Controller
         ->take(4)
         ->get();
 
+        if (DB::table('destaques')->count() < 1) {
+            
+            $destaques = false;
+
+            return view('home', compact('campeonatos', 'destaques'));
+        }
+
         $destaques = DB::table('campeonatos')
             ->join('destaques','campeonatos.id', '=', 'destaques.campeonato_id')
             ->join('estados','campeonatos.estado_id', '=', 'estados.id')

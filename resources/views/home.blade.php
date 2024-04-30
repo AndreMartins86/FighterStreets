@@ -19,6 +19,9 @@
 		</div>
 	</div>
 
+	@if ($destaques == false)
+		<h2 class="text-center">Destaques em breve</h2>		
+	@else
 	<div class="container-fluid">
 		<div class="row">			
 			@foreach ($destaques as $destaque )		
@@ -44,6 +47,8 @@
 			@endforeach		
 		</div>		
 	</div>
+		
+	@endif	
 
 	<div class="container-fluid mt-2 mb-3">
 		<div class="row">
