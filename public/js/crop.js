@@ -91,7 +91,6 @@ imagemAvatar.addEventListener('change', e => {
         imagemPreview.id = 'imagem-preview';
         imagemPreview.src = evento.target.result;
         caixa.append(imagemPreview);
-
     };
 
     fr.readAsDataURL(imagemAvatar.files[0]);
@@ -167,7 +166,7 @@ imagemAvatar.addEventListener('change', e => {
                                 const resposta = await fetch(urlEditar, {
                                     method: 'POST',
                                     headers: {
-                                        "X-CSRF-TOKEN": token                                        
+                                        "X-CSRF-TOKEN": token
                                     },                                
                                     body: formData
                                 });

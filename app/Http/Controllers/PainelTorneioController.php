@@ -20,11 +20,26 @@ class PainelTorneioController extends Controller
      */
     public function index(): View
     {
+        //SELECT destaques.posicao, campeonatos.id, titulo, DATE_FORMAT(campeonatos.data, "%d/%m/%Y") as "data", cidade, estados.sigla FROM campeonatos
+        //INNER JOIN destaques on campeonatos.id = destaques.campeonato_id
+        //INNER JOIN estados on campeonatos.estado_id = estados.id;
         $campeonatos = Campeonato::where('status', 1)
         ->orderBy('data')
-        ->paginate(10);
+        ->paginate(10);        
 
-        return view('painel.painel_torneio', compact('campeonatos'));
+        if (DB::table('destaques')->count() < 1) {
+            $destaques = false;
+
+            return view('painel.painel_torneio', compact('campeonatos', 'destaques'));
+        }
+
+        $destaques = DB::table('campeonatos')
+            ->join('destaques','campeonatos.id', '=', 'destaques.campeonato_id')
+            ->join('estados','campeonatos.estado_id', '=', 'estados.id')
+            ->selectRaw('destaques.posicao, campeonatos.id, titulo, DATE_FORMAT(campeonatos.data, "%d/%m/%Y") as "data", cidade, estados.sigla')
+            ->get();
+
+        return view('painel.painel_torneio', compact('campeonatos', 'destaques'));
     }
 
     /**
@@ -139,7 +154,7 @@ class PainelTorneioController extends Controller
 
         session()->flash('msg', 'Campeonato Atualizado');
 
-        return response()->json(['success'=>'Atualizado', 'link' => route('painel-torneios.index')]);        
+        return response()->json(['success'=>'Atualizado', 'link' => route('painel-torneios.index')]);
     }
 
     /**
@@ -171,6 +186,26 @@ class PainelTorneioController extends Controller
         ->get();
 
         return view('painel.painel', compact('campeonatos'));        
+    }
+
+    public function salvarDestaques(Request $req)
+    {
+        $tam = count($req->all());
+        $vetor = array_values($req->all());  
+
+        DB::table('destaques')->truncate();
+
+        for ($i=0;$i<$tam; $i++) {
+            $pos = $i + 1;
+            DB::table('destaques')->insert([
+                'posicao' => $pos,
+                'campeonato_id' => intval($vetor[$i]),
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);            
+        }
+
+        return response()->json(['success'=>'Destaque salvo']);        
     }
 
     private function regras(): Array

@@ -37,3 +37,5 @@ Route::resources([
 Route::get('/filtrar', [PainelUserController::class, 'filtrar'])->name('filtrar');
 
 Route::get('/filtrar-campeonato', [PainelTorneioController::class, 'filtrarTorneio'])->name('filtrarTorneio');
+
+Route::post('/salvar-destaques', [PainelTorneioController::class, 'salvarDestaques'])->name('salvarDestaques');

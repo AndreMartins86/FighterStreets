@@ -25,7 +25,6 @@ return new class extends Migration
             $table->foreignId('fase_id')->constrained();
             $table->boolean('status');
             $table->timestamps();
-
         });
     }
 
