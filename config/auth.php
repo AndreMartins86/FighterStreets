@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'webatleta' => [
+            'driver' => 'session',
+            'provider' => 'atletas',
+        ],
     ],
 
     /*
@@ -63,6 +67,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'atletas' => [//
+            'driver' => 'eloquent',
+            'model' => App\Models\Atleta::class,
         ],
 
         // 'users' => [

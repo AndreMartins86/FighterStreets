@@ -114,6 +114,12 @@ class PainelUserController extends Controller
         ->whereBetween('created_at', [$inicial, $final])
         ->get();
 
-        return view('painel.painel', compact('usuarios'));        
+        return view('painel.painel', compact('usuarios'));
+    }
+
+    public function painelLogin(): View
+    {
+        return view('painel.painel_login');
+        
     }
 }

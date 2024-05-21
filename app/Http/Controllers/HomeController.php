@@ -89,4 +89,9 @@ class HomeController extends Controller
         return view('torneios', compact('campeonatos', 'estados', 'tipos', 'busca'));
 
     }
+
+    public function atletaLogin(): View
+    {
+        return view('area.login');        
+    }
 }

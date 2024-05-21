@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 
+Route::get('/login', [HomeController::class, 'atletaLogin'])->name('atleta.login');
+
 Route::get('/detalhes/{campeonato}/{slug}', [HomeController::class, 'detalhes'])->name('detalhes');
 
 Route::get('/torneios', [HomeController::class, 'torneios'])->name('torneios');
@@ -28,6 +30,8 @@ Route::get('/busca', [HomeController::class, 'busca'])->name('busca');
 /////////////////////////  Painel   ///////////////////////////////////////////////
 
 //Route::resource('/painel', PainelUserController::class);
+
+Route::get('/painel-login', [PainelUserController::class, 'painelLogin'])->name('painel.login');
 
 Route::resources([
     '/painel-usuarios' => PainelUserController::class,
