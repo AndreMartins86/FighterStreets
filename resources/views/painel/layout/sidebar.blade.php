@@ -24,5 +24,5 @@
             <a href="{{ route('painel-torneios.index') }}">Listagem</a>
         </div>
     </div>
-    <a href="#">Sair</a>
+    <a href="{{ route('p-logout')  }}">Sair</a>
 </div>

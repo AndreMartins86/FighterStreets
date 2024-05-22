@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AreaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PainelUserController;
 use App\Http\Controllers\PainelTorneioController;
@@ -19,27 +20,41 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 
-Route::get('/login', [HomeController::class, 'atletaLogin'])->name('atleta.login');
-
 Route::get('/detalhes/{campeonato}/{slug}', [HomeController::class, 'detalhes'])->name('detalhes');
 
 Route::get('/torneios', [HomeController::class, 'torneios'])->name('torneios');
 
 Route::get('/busca', [HomeController::class, 'busca'])->name('busca');
 
-/////////////////////////  Painel   ///////////////////////////////////////////////
+/////////////////////////  Area Atleta   ///////////////////////////////////////////////
+
+Route::get('/login', [AreaController::class, 'atletaLogin'])->name('a.login');
+
+Route::get('/area', [AreaController::class, 'atletaArea'])->name('atleta.area');
+
+
+
+/////////////////////////  Painel   ////////////////////////////////////////////////////
 
 //Route::resource('/painel', PainelUserController::class);
 
-Route::get('/painel-login', [PainelUserController::class, 'painelLogin'])->name('painel.login');
+Route::get('/painel-login', [PainelUserController::class, 'painelLogin'])->name('p-login');
 
-Route::resources([
-    '/painel-usuarios' => PainelUserController::class,
-    '/painel-torneios' => PainelTorneioController::class
-]);
+Route::post('/painel-logar', [PainelTorneioController::class, 'painelLogar'])->name('p-logar');
 
-Route::get('/filtrar', [PainelUserController::class, 'filtrar'])->name('filtrar');
+Route::get('/painel-logout', [PainelTorneioController::class, 'painelLogout'])->name('p-logout');
 
-Route::get('/filtrar-campeonato', [PainelTorneioController::class, 'filtrarTorneio'])->name('filtrarTorneio');
+Route::middleware('auth')->group(function () {
+    Route::resources([
+        '/painel-usuarios' => PainelUserController::class,
+        '/painel-torneios' => PainelTorneioController::class
+    ]);
+    
+    Route::get('/filtrar', [PainelUserController::class, 'filtrar'])->name('painel-filtrar');
+    
+    Route::get('/filtrar-campeonato', [PainelTorneioController::class, 'filtrarTorneio'])->name('painel-filtrarTorneio');
+    
+    Route::post('/salvar-destaques', [PainelTorneioController::class, 'salvarDestaques'])->name('painel-salvarDestaques');
 
-Route::post('/salvar-destaques', [PainelTorneioController::class, 'salvarDestaques'])->name('salvarDestaques');
+});
+

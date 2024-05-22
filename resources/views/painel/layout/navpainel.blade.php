@@ -16,7 +16,7 @@
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#">Alterar senha</a></li>
-              <li><a class="dropdown-item" href="#">Sair</a></li>              
+              <li><a class="dropdown-item" href="{{ route('p-logout')  }}">Sair</a></li>              
             </ul>
           </li>
         </ul>

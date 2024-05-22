@@ -36,12 +36,12 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-                            <form action="{{ route('filtrarTorneio') }}" method="GET">
+                            <form action="{{ route('painel-filtrarTorneio') }}" method="GET">
                                 {{-- @csrf --}}
                                 <div class="row align-items-end">
                                     <div class="col-4">
-                                        <label for="name" class="form-label">Buscar:</label>
-                                        <input type="text" name="name" id="name" class="form-control">
+                                        <label for="titulo" class="form-label">Buscar:</label>
+                                        <input type="text" name="titulo" id="titulo" class="form-control">
                                     </div>
 
                                     <div class="col-2">

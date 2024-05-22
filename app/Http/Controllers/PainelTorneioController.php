@@ -7,6 +7,8 @@ use App\Models\Campeonato;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Collection as SupportCollection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Validator;
@@ -15,6 +17,40 @@ use Illuminate\Support\Facades\Storage;
 
 class PainelTorneioController extends Controller
 {
+    public function painelLogin(): View
+    {
+        return view('painel.painel_login');
+    }
+
+    public function painelLogar(Request $req): RedirectResponse
+    {
+        $credenciais = $req->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required']
+        ]);
+
+        if (Auth::attempt($credenciais)) 
+        {
+            $req->session()->regenerate();
+
+            return redirect()->intended('/painel-torneios');
+        }
+
+        return back()->withErrors([
+            'email' => 'Email inválido'
+        ])->onlyInput('email');        
+    }
+
+    public function painelLogout(Request $req): RedirectResponse
+    {
+        Auth::logout();
+
+        $req->session()->invalidate();
+        $req->session()->regenerateToken();
+
+        return redirect('/painel-login');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -33,11 +69,7 @@ class PainelTorneioController extends Controller
             return view('painel.painel_torneio', compact('campeonatos', 'destaques'));
         }
 
-        $destaques = DB::table('campeonatos')
-            ->join('destaques','campeonatos.id', '=', 'destaques.campeonato_id')
-            ->join('estados','campeonatos.estado_id', '=', 'estados.id')
-            ->selectRaw('destaques.posicao, campeonatos.id, titulo, DATE_FORMAT(campeonatos.data, "%d/%m/%Y") as "data", cidade, estados.sigla')
-            ->get();
+        $destaques = $this->destaques();
 
         return view('painel.painel_torneio', compact('campeonatos', 'destaques'));
     }
@@ -180,12 +212,20 @@ class PainelTorneioController extends Controller
         $inicial = $req->de == null ? '1996-01-01' : $req->de;
         $final = $req->ate == null ? now() : $req->ate;
 
-        $campeonatos = Campeonato::where('titulo', 'LIKE', '%'.$req->name.'%')        
+        $campeonatos = Campeonato::where('titulo', 'LIKE', '%'.$req->titulo.'%')        
         ->where('status', $status)
         ->whereBetween('created_at', [$inicial, $final])
-        ->get();
+        ->paginate();
 
-        return view('painel.painel', compact('campeonatos'));        
+        if (DB::table('destaques')->count() < 1) {
+            $destaques = false;
+
+            return view('painel.painel_torneio', compact('campeonatos', 'destaques'));
+        }
+
+        $destaques = $this->destaques();
+
+        return view('painel.painel_torneio', compact('campeonatos', 'destaques'));
     }
 
     public function salvarDestaques(Request $req)
@@ -221,6 +261,17 @@ class PainelTorneioController extends Controller
             'informacoes' => 'required|min:3|max:150',
             'estado_id' => 'required|integer|numeric'   
         ];        
+    }
+
+    private function destaques(): SupportCollection
+    {
+        $destaques = DB::table('campeonatos')
+        ->join('destaques','campeonatos.id', '=', 'destaques.campeonato_id')
+        ->join('estados','campeonatos.estado_id', '=', 'estados.id')
+        ->selectRaw('destaques.posicao, campeonatos.id, titulo, DATE_FORMAT(campeonatos.data, "%d/%m/%Y") as "data", cidade, estados.sigla')
+        ->get();
+
+        return $destaques;
     }
    
 }

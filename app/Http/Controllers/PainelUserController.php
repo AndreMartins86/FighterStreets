@@ -104,9 +104,7 @@ class PainelUserController extends Controller
     public function filtrar(Request $req): View
     {
         $status = $req->status == 1 ? 1 : 0;
-
         $inicial = $req->de == null ? '1996-01-01' : $req->de;
-
         $final = $req->ate == null ? now() : $req->ate;
 
         $usuarios = User::where('name', 'LIKE', '%'.$req->name.'%')        

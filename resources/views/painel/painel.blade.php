@@ -29,7 +29,7 @@
                     </div>
                 </div>
 
-                <form action="{{ route('filtrar') }}" method="GET">
+                <form action="{{ route('painel-filtrar') }}" method="GET">
                     {{-- @csrf --}}
                     <div class="row align-items-end">
                         <div class="col-4">
