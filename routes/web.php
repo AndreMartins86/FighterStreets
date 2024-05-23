@@ -30,7 +30,12 @@ Route::get('/busca', [HomeController::class, 'busca'])->name('busca');
 
 Route::get('/login', [AreaController::class, 'atletaLogin'])->name('a.login');
 
-Route::get('/area', [AreaController::class, 'atletaArea'])->name('atleta.area');
+Route::post('/atleta-logar', [AreaController::class, 'atletaLogar'])->name('a.logar');
+
+Route::get('/atleta-logout', [AreaController::class, 'atletaLogout'])->name('a.logout');
+
+Route::get('/area', [AreaController::class, 'atletaArea'])->name('atleta.area')
+->middleware('auth:webatletas');
 
 
 

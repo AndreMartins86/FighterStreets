@@ -16,7 +16,7 @@
     						<a class="nav-link" href="{{ route('torneios') }}">Torneios</a>
   						</li>
   						<li class="nav-item">
-    						<button type="button" class="btn btn-outline-primary btn-sm"><a class="nav-link" href="#">Area Lutador</a></button>	
+    						<button type="button" class="btn btn-outline-primary btn-sm"><a class="nav-link" href="{{ route('atleta.area') }}">Area Lutador</a></button>	
   						</li>  
 					</ul>
 				</div>

@@ -35,6 +35,7 @@
                       
                     </tbody>
                   </table>
+                  <p>{{ auth()->user()->nome }}</p>
             </div>
         </div>
     </div>

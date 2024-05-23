@@ -23,7 +23,7 @@ class AreaController extends Controller
         return view('area.area_restrita');
     }
 
-    public function logar(Request $req): RedirectResponse
+    public function atletaLogar(Request $req): RedirectResponse
     {
         $credenciais = $req->validate([
             'email' => ['required', 'email'],
@@ -32,9 +32,9 @@ class AreaController extends Controller
 
         if(Auth::guard('webatletas')->attempt($credenciais))
         {
-            $req->session()->regenerate();
+            $req->session()->regenerate();            
 
-            return redirect()->intended('atleta.area');        
+            return redirect()->intended('/area');        
         }
 
         return back()->withErrors([
@@ -42,7 +42,7 @@ class AreaController extends Controller
         ])->onlyInput('email');        
     }
 
-    public function logout(Request $req): RedirectResponse
+    public function atletaLogout(Request $req): RedirectResponse
     {
         Auth::guard('webatletas')->logout();
 

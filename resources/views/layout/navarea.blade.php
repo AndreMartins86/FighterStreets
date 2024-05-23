@@ -9,7 +9,7 @@
             <div class="col-6">
                 <ul class="nav justify-content-end">                     
                       <li class="nav-item">
-                        <button type="button" class="btn btn-outline-primary btn-sm"><a class="nav-link" href="#">Sair</a></button>	
+                        <button type="button" class="btn btn-outline-primary btn-sm"><a class="nav-link" href="{{ route('a.logout') }}">Sair</a></button>	
                       </li>  
                 </ul>
             </div>

@@ -14,6 +14,8 @@ class Atleta extends Authenticatable //para autenticação em outra tabela
 
     protected $guarded = [];
 
+    protected $hidden = ['password'];
+
     public function campeonatos(): BelongsToMany
     {
         return $this->belongsToMany(Campeonato::class);        

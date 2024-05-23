@@ -40,7 +40,7 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'webatleta' => [
+        'webatletas' => [
             'driver' => 'session',
             'provider' => 'atletas',
         ],
