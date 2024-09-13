@@ -26,6 +26,10 @@ Route::get('/torneios', [HomeController::class, 'torneios'])->name('torneios');
 
 Route::get('/busca', [HomeController::class, 'busca'])->name('busca');
 
+Route::view('/criar-conta', 'inscricao')->name('criar.atleta');
+
+Route::post('/cadastrado', [HomeController::class, 'atletaCadastro'])->name('atleta.cadastrado');
+
 /////////////////////////  Area Atleta   ///////////////////////////////////////////////
 
 Route::get('/login', [AreaController::class, 'atletaLogin'])->name('a.login');
@@ -34,9 +38,14 @@ Route::post('/atleta-logar', [AreaController::class, 'atletaLogar'])->name('a.lo
 
 Route::get('/atleta-logout', [AreaController::class, 'atletaLogout'])->name('a.logout');
 
-Route::get('/area', [AreaController::class, 'atletaArea'])->name('atleta.area')
-->middleware('auth:webatletas');
+Route::middleware('auth:webatletas')->group(function () {
 
+    Route::get('/area', [AreaController::class, 'atletaArea'])->name('atleta.area');
+
+    Route::get('/confirmar-inscricao/{id}', [AreaController::class, 'confirmarInscricao'])->name('atleta.confirmar');
+
+    Route::get('/confirmado/{id}', [AreaController::class, 'atletaConfirmado'])->name('atleta.confirmado');
+});
 
 
 /////////////////////////  Painel   ////////////////////////////////////////////////////

@@ -59,11 +59,55 @@
             </div>
         </div>
 
+        @auth('webatletas')
+
         <div class="row justify-content-center mt-3 mb-3">
             <div class="col-4 d-grid justify-content-center">
-                <button type="button" class="btn btn-primary">Inscrição</button>
+
+                @if ($campeonato->fase_id == 1)
+                    <a href="{{ route('atleta.confirmar', $campeonato->id) }}">
+                        <button type="button" class="btn btn-primary">Inscrição</button>
+                    </a>                    
+                @elseif ($campeonato->fase_id == 2)
+                    <a href="{{-- route() --}}">
+                        <button type="button" class="btn btn-primary">Veja as chaves</button>
+                    </a>                
+                @else
+                    <a href="{{-- route() --}}">
+                        <button type="button" class="btn btn-primary">Resultados</button>
+                    </a>                    
+                @endif
+
             </div>
         </div>
+            
+        @endauth
+
+        @guest('webatletas')
+
+        <div class="row justify-content-center mt-3 mb-3">
+            <div class="col-4 d-grid justify-content-center">
+                
+                @if ($campeonato->fase_id == 1)
+                    <a href="{{ route('criar.atleta') }}">
+                        <button type="button" class="btn btn-primary" title="Crie sua conta para fazer a inscrição">Criar conta aqui</button>
+                    </a>
+                @elseif ($campeonato->fase_id == 2)
+                    <a href="{{-- --}}">                        
+                        <button type="button" class="btn btn-primary">Veja as chaves</button>
+                    </a>
+                @else
+                    <a href="{{-- --}}">
+                        <button type="button" class="btn btn-primary">Resultados</button>
+                    </a>                   
+
+                @endif
+                              
+            </div>
+        </div>
+            
+        @endguest
+        
     </div>
 
     @include('layout.footerhome')

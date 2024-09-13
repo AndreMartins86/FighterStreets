@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Campeonato;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class AreaController extends Controller
 {
@@ -50,5 +52,25 @@ class AreaController extends Controller
         $req->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    public function confirmarInscricao($id): View
+    {
+        $campeonato = Campeonato::find($id);
+
+        return view('area.confirm_inscricao', compact('campeonato'));
+    }
+
+    public function atletaConfirmado($id): RedirectResponse
+    {
+        DB::table('atleta_campeonato')->insert([
+            'atleta_id' => auth()->user()->id,
+            'campeonato_id' => $id,
+            'dataDaInscricao' => now()
+        ]);
+
+        session()->flash('msg', 'Inscrição Confirmada');
+
+        return redirect()->route('atleta.area');        
     }
 }

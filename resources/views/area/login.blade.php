@@ -19,13 +19,16 @@
   						<input type="password" class="form-control" name="password" id="senha" value="1234">
 					</div>
 					<div class="form-text">
-						<p><a href="" title="">Esqueceu sua senha?</a></p>
+						<p><a href="" title="Lembrar sua senha">Esqueceu sua senha?</a></p>
 					</div>
 
 					<div class="col-12">
 						<button type="submit" class="btn btn-primary">Entrar</button>
 					</div>
 				</form>
+				<div class="form-text mt-3">
+					<p><a href="{{ route('criar.atleta')}}" title="Criar Conta">Clique aqui para criar sua conta</a></p>
+				</div>
 				@if ($errors->any())
     				<div class="alert alert-danger">
         				<ul>

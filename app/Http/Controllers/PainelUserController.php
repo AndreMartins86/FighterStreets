@@ -38,11 +38,11 @@ class PainelUserController extends Controller
 
         $usuario = $req->validated();        
         $usuario['password'] = Hash::make($req->password);
-        $usuario['created_at'] = now();        
+        $usuario['created_at'] = now();
         
         User::create($usuario);
 
-        session()->flash('msg', 'Usuário Cadastrado');   
+        session()->flash('msg', 'Usuário Cadastrado');
 
         return redirect()->route('painel-usuarios.index');
     }

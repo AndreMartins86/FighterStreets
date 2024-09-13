@@ -9,9 +9,17 @@
             <div class="col">
                 <h2 class="text-center">Veja os seus certificados</h2>
                 <p class="text-center">Aqui constam os certificados de todos os torneios que você já participou</p>
+                @if (session()->has('msg'))
+                
+                <div class="alert alert-success">
+                  <p>{{ session()->get('msg') }}</p>
+                </div>
+
+                @endif
             </div>
         </div>
     </div>
+    <p>Olá {{ auth()->user()->nome }}</p>
     
     <div class="container mt-4 mb-4">
         <div class="row">
@@ -35,7 +43,7 @@
                       
                     </tbody>
                   </table>
-                  <p>{{ auth()->user()->nome }}</p>
+                  {{-- <p>{{ auth()->user()->nome }}</p> --}}
             </div>
         </div>
     </div>

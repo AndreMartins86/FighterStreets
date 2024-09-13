@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AtletaRequest;
+use App\Models\Atleta;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Campeonato;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -58,7 +62,7 @@ class HomeController extends Controller
     }
 
     public function busca (Request $req): View
-    {        
+    {    
         $titulo = $req->titulo;
         $tipo = $req->tipo;
         $estado = $req->estado;
@@ -88,5 +92,26 @@ class HomeController extends Controller
       }
         return view('torneios', compact('campeonatos', 'estados', 'tipos', 'busca'));
 
-    }    
+    }
+
+    public function atletaCadastro(AtletaRequest $req): RedirectResponse
+    {
+        $validado = $req->validated();
+        $validado['password'] = Hash::make($req->password);
+        $validado['created_at'] = now();
+
+        $atleta = Atleta::create($validado);
+
+        //dd($atleta);
+
+        //Auth::login($atleta);
+        Auth::guard('webatletas')->login($atleta);
+
+        $req->session()->regenerate();
+
+        session()->flash('msg', 'Atleta Cadastrado');
+
+        return redirect()->route('atleta.area');        
+        
+    }
 }

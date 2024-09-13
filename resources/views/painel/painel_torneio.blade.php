@@ -201,7 +201,7 @@
                                     </tr>
                                 @endforeach
                             </tbody>
-                        </table>
+                        </table>                        
 
                         {{ $campeonatos->links() }}
 
