@@ -112,6 +112,6 @@
 
     @include('layout.footerhome')
     @push('tabs')
-    <script src="/js/tabs.js"></script>        
+    <script src="/js/tabs.js"></script>
     @endpush
 @endsection

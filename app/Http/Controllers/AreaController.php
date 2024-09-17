@@ -2,26 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Atleta;
 use App\Models\Campeonato;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Database\Eloquent\Builder;
+
 
 class AreaController extends Controller
 {
-    public function atletaLogin(): View
-    {
-        return view('area.login');
-    }
-
     public function atletaArea(): View
     {
         // TODO
         // buscar os dados do usuário logado
+        if (auth()->user()) {
 
+            $campeonatos = Campeonato::whereHas('atletas', function (Builder $query) {
+                $query->where('id', auth()->user()->id);
+            })
+            ->where('status', 1)
+            ->selectRaw('id, titulo, data')
+            ->paginate(15);
+
+            //dd($campeonatos);
+
+            return view('area.area_restrita', compact('campeonatos'));
+        }
+
+        //////////////////////////////////ARRUMAR
         return view('area.area_restrita');
     }
 
@@ -56,21 +67,44 @@ class AreaController extends Controller
 
     public function confirmarInscricao($id): View
     {
+        $inscrito = false;
         $campeonato = Campeonato::find($id);
 
-        return view('area.confirm_inscricao', compact('campeonato'));
+        $checagem = DB::table('atleta_campeonato')
+        ->where('atleta_id', auth()->user()->id)
+        ->where('campeonato_id', $id)
+        ->count();
+
+        if ($checagem > 0) {
+            $inscrito = true;
+        }
+
+        return view('area.confirm_inscricao', compact('campeonato', 'inscrito'));
     }
 
     public function atletaConfirmado($id): RedirectResponse
     {
         DB::table('atleta_campeonato')->insert([
-            'atleta_id' => auth()->user()->id,
-            'campeonato_id' => $id,
-            'dataDaInscricao' => now()
+          'atleta_id' => auth()->user()->id,
+          'campeonato_id' => $id,
+          'dataDaInscricao' => now()
         ]);
 
         session()->flash('msg', 'Inscrição Confirmada');
 
-        return redirect()->route('atleta.area');        
+        return redirect()->route('atleta.area');
     }
+
+    public function atletaCertificado(string $campeonat, string $atlet): View
+    {
+        //TODO
+        //checagens
+        $campeonato = Campeonato::find($campeonat);
+        $atleta = Atleta::find($atlet);
+
+        return view('area.certificado_participacao', compact('campeonato', 'atleta'));
+        
+    }
+
+
 }

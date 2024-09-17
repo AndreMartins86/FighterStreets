@@ -34,20 +34,32 @@
                       </tr>
                     </thead>
                     <tbody>
+                      @foreach ($campeonatos as $campeonato )
+
                       <tr>
-                        <th scope="row">23/11/2023</th>
-                        <td>Campeonato Regional Santista</td>
-                        <td><button type="button" class="btn btn-primary">Detalhes</button></td>
-                        <td><button type="button" class="btn btn-primary">Certificado</button></td>
+                        <td scope="row">{{ $campeonato->getData() }}</td>
+                        <td>{{ $campeonato->titulo }}</td>                        
+                        <td>
+                          <a href="{{ route('detalhes', ['campeonato' => $campeonato->id, 'slug' => str_replace(' ','-', $campeonato->titulo)]) }}">
+                            <button type="button" class="btn btn-primary">Detalhes</button>
+                          </a>
+                        </td>
+                        <td>
+                          <a href="{{ route('atleta.certificado', ['campeonato' => $campeonato->id, 'atleta' => auth()->user()->id]) }}">
+                            <button type="button" class="btn btn-primary">Certificado</button>
+                          </a>
+                        </td>
                       </tr>
+
+                      @endforeach
                       
                     </tbody>
                   </table>
                   {{-- <p>{{ auth()->user()->nome }}</p> --}}
             </div>
         </div>
+        {{ $campeonatos->links() }}
     </div>
 </main>
-
 @include('layout.footerarea')
 @endsection

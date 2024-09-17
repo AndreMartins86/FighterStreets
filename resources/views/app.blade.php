@@ -22,5 +22,6 @@
 @stack('tabs')
 @stack('crop')
 @stack('drag')
+@stack('mask')
 </body>
 </html>

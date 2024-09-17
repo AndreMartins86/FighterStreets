@@ -32,7 +32,7 @@ Route::post('/cadastrado', [HomeController::class, 'atletaCadastro'])->name('atl
 
 /////////////////////////  Area Atleta   ///////////////////////////////////////////////
 
-Route::get('/login', [AreaController::class, 'atletaLogin'])->name('a.login');
+Route::view('/login', 'area.login')->name('a.login');
 
 Route::post('/atleta-logar', [AreaController::class, 'atletaLogar'])->name('a.logar');
 
@@ -45,6 +45,8 @@ Route::middleware('auth:webatletas')->group(function () {
     Route::get('/confirmar-inscricao/{id}', [AreaController::class, 'confirmarInscricao'])->name('atleta.confirmar');
 
     Route::get('/confirmado/{id}', [AreaController::class, 'atletaConfirmado'])->name('atleta.confirmado');
+    
+    Route::get('/certificado/{campeonato}/{atleta}', [AreaController::class, 'atletaCertificado'])->name('atleta.certificado');
 });
 
 

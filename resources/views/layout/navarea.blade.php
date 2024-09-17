@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-6">
-                <img id='logo' src="img/sf.png" alt="logo">
+                <img id='logo' src="/img/sf.png" alt="logo">
                 <h3 id='titulo' class="align-middle">Fighter Streets <span><small>Área do Atleta</small></span></h3>                
             </div>
             <div class="col-5">

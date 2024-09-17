@@ -104,5 +104,8 @@
     </div>
 
 
-    @include('layout.footerhome')
+@include('layout.footerhome')
+@push('mask')
+<script src="/js/mask.js"></script>
+@endpush
 @endsection
