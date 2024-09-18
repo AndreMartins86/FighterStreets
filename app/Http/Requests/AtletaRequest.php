@@ -22,7 +22,7 @@ class AtletaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nome' => 'required|min:12',
+            'nome' => 'required|min:10',
             'cpf' => 'required|min:11|numeric|unique:App\Models\Atleta,cpf',
             'sexo_id' => 'required',
             'faixa_id' => 'required',
@@ -30,7 +30,8 @@ class AtletaRequest extends FormRequest
             'dataNascimento' => 'required|date',
             'equipe' => 'required|min:3',
             'peso_id' => 'required',
-            'email' => 'required|email|unique:App\Models\Atleta,email'
+            'email' => 'required|email|unique:App\Models\Atleta,email',
+            'captcha' => 'required'
         ];
     }
 }

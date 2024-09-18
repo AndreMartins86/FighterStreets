@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Arr;
 
 class HomeController extends Controller
 {
@@ -99,6 +100,7 @@ class HomeController extends Controller
         $validado = $req->validated();
         $validado['password'] = Hash::make($req->password);
         $validado['created_at'] = now();
+        $validado = Arr::except($validado, ['captcha']);
 
         $atleta = Atleta::create($validado);
 
@@ -113,5 +115,10 @@ class HomeController extends Controller
 
         return redirect()->route('atleta.area');        
         
+    }
+
+    public function reloadCaptcha()
+    {
+        return response()->json(['captcha' => captcha_img()]);
     }
 }

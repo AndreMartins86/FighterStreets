@@ -32,6 +32,8 @@ Route::view('/err', 'erro')->name('erro');
 
 Route::post('/cadastrado', [HomeController::class, 'atletaCadastro'])->name('atleta.cadastrado');
 
+Route::get('/reload-captcha', [HomeController::class, 'reloadCaptcha'])->name('captcha');
+
 /////////////////////////  Area Atleta   ///////////////////////////////////////////////
 
 Route::view('/login', 'area.login')->name('a.login');

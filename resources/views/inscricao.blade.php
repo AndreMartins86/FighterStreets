@@ -17,7 +17,7 @@
 							@endforeach
         				</ul>
     				</div>
-				@endif
+		@endif
 
         <form method="POST" action="{{ route('atleta.cadastrado') }}">
             @csrf
@@ -27,7 +27,6 @@
                         <label for="nome" class="form-label">Nome</label>
                         <input type="text" name="nome" id="nome" class="form-control">
                     </div>
-
 
                     <div class="mb-3">
                         <label for="cpf" class="form-label">CPF</label>
@@ -50,10 +49,19 @@
                         </select>
                     </div>
 
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" name="email" id="email" class="form-control">
+                    </div>
 
                     <div class="mb-3">
                         <label for="password" class="form-label">Senha</label>
                         <input type="password" name="password" id="password" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password_confirmation" class="form-label">Confirmar Senha</label>
+                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
                     </div>
 
             </div>
@@ -78,14 +86,13 @@
                     </select>
                 </div>
 
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" name="email" id="email" class="form-control">
-                </div>
-
-                <div class="mb-3">
-                    <label for="password_confirmation" class="form-label">Confirmar Senha</label>
-                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
+                <div class="formgroup mt-2 mb-2">
+                    <div class="captcha">
+                        <span>{!! captcha_img() !!}</span>
+                        <button type="button" class="btn btn-danger reload" id="reload">
+                            &#x21bb;
+                        </button>
+                    </div>
                 </div>
 
             </div>
@@ -107,5 +114,8 @@
 @include('layout.footerhome')
 @push('mask')
 <script src="/js/mask.js"></script>
+@endpush
+@push('captcha')
+<script src="/js/captcha.js"></script>
 @endpush
 @endsection
