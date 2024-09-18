@@ -25,15 +25,12 @@ class AreaController extends Controller
             })
             ->where('status', 1)
             ->selectRaw('id, titulo, data')
-            ->paginate(15);
-
-            //dd($campeonatos);
+            ->paginate(15);            
 
             return view('area.area_restrita', compact('campeonatos'));
         }
-
-        //////////////////////////////////ARRUMAR
-        return view('area.area_restrita');
+        
+        return view('erro');
     }
 
     public function atletaLogar(Request $req): RedirectResponse

@@ -28,6 +28,8 @@ Route::get('/busca', [HomeController::class, 'busca'])->name('busca');
 
 Route::view('/criar-conta', 'inscricao')->name('criar.atleta');
 
+Route::view('/err', 'erro')->name('erro');
+
 Route::post('/cadastrado', [HomeController::class, 'atletaCadastro'])->name('atleta.cadastrado');
 
 /////////////////////////  Area Atleta   ///////////////////////////////////////////////
