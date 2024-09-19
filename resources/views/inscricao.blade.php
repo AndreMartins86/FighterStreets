@@ -19,18 +19,18 @@
     				</div>
 		@endif
 
-        <form method="POST" action="{{ route('atleta.cadastrado') }}">
+        <form method="POST" action="{{ route('atleta.cadastrado') }}" id="form">
             @csrf
             <div class="row">
                 <div class="col-6">                    
                     <div class="mb-3 mt-3">
                         <label for="nome" class="form-label">Nome</label>
-                        <input type="text" name="nome" id="nome" class="form-control">
+                        <input type="text" name="nome" id="nome" class="form-control" value="{{ old('nome') }}">
                     </div>
 
                     <div class="mb-3">
                         <label for="cpf" class="form-label">CPF</label>
-                        <input type="text" name="cpf" id="cpf" class="form-control">
+                        <input type="text" name="cpf" id="cpf" class="form-control" value="{{ old('cpf') }}">
                     </div>
 
                     <div class="mb-3">
@@ -51,7 +51,7 @@
 
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" name="email" id="email" class="form-control">
+                        <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}">
                     </div>
 
                     <div class="mb-3">
@@ -75,7 +75,7 @@
 
                 <div class="mb-3">
                     <label for="equipe" class="form-label">Equipe</label>
-                    <input type="text" name="equipe" id="equipe" class="form-control">
+                    <input type="text" name="equipe" id="equipe" class="form-control" value="{{ old('equipe') }}">
                 </div>
 
                 <div class="mb-3">
@@ -88,20 +88,23 @@
 
                 <div class="formgroup mt-2 mb-2">
                     <div class="captcha">
-                        <span>{!! captcha_img() !!}</span>
+                        <span>{!! captcha_img('flat') !!}</span>                      
                         <button type="button" class="btn btn-danger reload" id="reload">
                             &#x21bb;
                         </button>
                     </div>
                 </div>
 
+                <div class="formgroup mt-3 mb-2">
+                    <input type="text" class="form-control" name="captcha" id="input_captcha"
+                    placeholder="Digite a Captcha">
+                </div>
+
             </div>
 
             <div class="row justify-content-center mt-3 mb-3">
-                <div class="col-4 d-grid justify-content-center">
-                    <a href="{{-- --}}">
-                        <button type="submit" class="btn btn-primary">Enviar</button>
-                    </a>                
+                <div class="col-4 d-grid justify-content-center">                    
+                        <button type="submit" class="btn btn-primary" id="enviar">Enviar</button>                    
                 </div>
             </div>
 
@@ -109,6 +112,7 @@
 
         </div>
     </div>
+    
 
 
 @include('layout.footerhome')

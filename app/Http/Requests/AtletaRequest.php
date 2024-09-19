@@ -14,6 +14,13 @@ class AtletaRequest extends FormRequest
         return true;
     }
 
+    public function messages(): array//////
+{
+    return [        
+        'captcha.captcha' => 'Captcha Inválida'
+    ];
+}
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -31,7 +38,7 @@ class AtletaRequest extends FormRequest
             'equipe' => 'required|min:3',
             'peso_id' => 'required',
             'email' => 'required|email|unique:App\Models\Atleta,email',
-            'captcha' => 'required'
+            'captcha' => 'required|captcha'
         ];
     }
 }
