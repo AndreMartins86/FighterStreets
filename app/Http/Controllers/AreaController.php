@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\InscricaoRealizada;
 use App\Models\Atleta;
 use App\Models\Campeonato;
 use Illuminate\Http\Request;
@@ -10,7 +11,7 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
-
+use Illuminate\Support\Facades\Mail;
 
 class AreaController extends Controller
 {
@@ -86,6 +87,13 @@ class AreaController extends Controller
           'campeonato_id' => $id,
           'dataDaInscricao' => now()
         ]);
+
+        $atleta = Atleta::find(auth()->user()->id);
+        $campeonato = Campeonato::find($id);
+
+        //Mail::to($request->user())->send(new OrderShipped($order));
+
+        Mail::to("teste.email@gmail.com")->send(new InscricaoRealizada($atleta, $campeonato));
 
         session()->flash('msg', 'Inscrição Confirmada');
 
