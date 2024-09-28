@@ -69,7 +69,7 @@
                         <button type="button" class="btn btn-primary">Inscrição</button>
                     </a>                    
                 @elseif ($campeonato->fase_id == 2)
-                    <a href="{{-- route() --}}">
+                    <a href="{{ route('chaves.detalhes', $campeonato->id) }}">
                         <button type="button" class="btn btn-primary">Veja as chaves</button>
                     </a>                
                 @else

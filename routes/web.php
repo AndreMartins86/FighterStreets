@@ -30,6 +30,8 @@ Route::view('/criar-conta', 'inscricao')->name('criar.atleta');
 
 Route::view('/err', 'erro')->name('erro');
 
+Route::view('/chaves', 'chave_detalhes')->name('chaves.detalhes');
+
 Route::post('/cadastrado', [HomeController::class, 'atletaCadastro'])->name('atleta.cadastrado');
 
 Route::get('/reload-captcha', [HomeController::class, 'reloadCaptcha'])->name('captcha');
@@ -75,6 +77,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/filtrar-campeonato', [PainelTorneioController::class, 'filtrarTorneio'])->name('painel-filtrarTorneio');
     
     Route::post('/salvar-destaques', [PainelTorneioController::class, 'salvarDestaques'])->name('painel-salvarDestaques');
+
+    Route::get('/encerrar-inscricoes/{id}', [PainelTorneioController::class, 'criarChaves'])->name('painel-criar.chaves');
+    
+    Route::get('/chaves/{id}', [PainelTorneioController::class, 'chaves'])->name('painel-chaves');
+
+    Route::get('/resultados/{id}', [PainelTorneioController::class, 'resultados'])->name('painel-resultados');
 
 });
 

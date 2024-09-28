@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('chaves', function(Blueprint $table){
             $table->id();
             $table->foreignId('campeonato_id')->constrained();
+            $table->integer('numeroLuta');
             $table->string('lutador_1')->nullable();
             $table->string('lutador_2')->nullable();            
             $table->string('vencedor')->nullable();
             $table->foreignId('sexo_id')->constrained();
             $table->foreignId('faixa_id')->constrained();
-            $table->foreignId('peso_id')->constrained();            
+            $table->foreignId('peso_id')->constrained();
             $table->timestamps();
             
         });

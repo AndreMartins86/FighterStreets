@@ -108,11 +108,11 @@
                                                     ondragover="permitirDrop(event)">
                                                     <tbody id="tabelaDrop">
                                                         @if ($destaques == false)
-                                                            <tr id="titulo">
+                                                            <tr id="tituloTabela">
                                                                 <th>Arraste aqui para adicionar destaques</th>
                                                             </tr>
                                                         @else
-                                                            <tr id="titulo">
+                                                            <tr id="tituloTabela">
                                                                 <th>Arraste aqui para adicionar destaques</th>
                                                             </tr>
                                                             @foreach ($destaques as $destaque)
@@ -122,6 +122,7 @@
                                                                     <td>{{ $destaque->titulo }}</td>
                                                                     <td>{{ $destaque->data }}</td>
                                                                     <td>{{ $destaque->cidade }} - {{ $destaque->sigla }}</td>
+                                                                    
                                                                     <td>
                                                                         <button type="button" title="Apagar destaque" class="btn btn-danger"
                                                                             onclick="apagarDestaque(this)"><svg xmlns="http://www.w3.org/2000/svg"
@@ -155,6 +156,7 @@
                                     <th>Campeonato</th>
                                     <th>Data</th>
                                     <th>Local</th>
+                                    <th>Fase</th>
                                     <th>AÇÕES</th>
                                 </tr>
                             </thead>
@@ -166,6 +168,7 @@
                                         <td>{{ $campeonato->titulo }}</td>
                                         <td>{{ $campeonato->getData() }}</td>
                                         <td>{{ $campeonato->getLocal() }}</td>
+                                        <td>{{ $campeonato->getFase() }}</td>
                                         <td>
                                             <a
                                                 href="{{ route('painel-torneios.show', ['painel_torneio' => $campeonato->id]) }}"><button

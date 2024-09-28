@@ -1,4 +1,4 @@
-const titulo = document.getElementById('titulo');
+const titulo = document.getElementById('tituloTabela');
 const tabela = document.getElementById('tabela');
 const msg = document.getElementById("res");
 let linha;
@@ -7,7 +7,7 @@ function existe(id) {
   const tam = tabela.children[0].children.length;
 
   for (let i = 0; i < tam; i++) {
-    if (tabela.children[0].children[i].id == id) {
+    if (tabela.children[0].children[i].id == id) {      
       return true;
     }
   }
@@ -42,19 +42,17 @@ function apagarDestaque(el) {
 
 function dropDestaque(e) {
   e.preventDefault();
-  //console.log(e.target.parentNode.id);
 
   try {
-    if (e.target.parentNode.id == 'titulo') {
-      const data = e.dataTransfer.getData("Text");
-      const copia = document.getElementById(data).cloneNode(true); 
-      
-      // while (tbody.children.length > 1) {
-      //   tbody.removeChild(tbody.lastElementChild);
-      // }
 
-      while (copia.children[3].children.length > 0) {
-        copia.children[3].lastElementChild.remove();
+    if (e.target.parentNode.id == 'tituloTabela') {
+      const data = e.dataTransfer.getData("Text");
+      const copia = document.getElementById(data).cloneNode(true);
+
+      console.log(copia.children);
+
+      while (copia.children[4].children.length > 0) {
+        copia.children[4].lastElementChild.remove();
       }
 
       const btnDeletar = document.createElement('button');
@@ -78,39 +76,29 @@ function dropDestaque(e) {
       svg.appendChild(path);
       btnDeletar.appendChild(svg);
 
-
       copia.setAttribute("ondragstart", "inicioArrastaDestaque(event)");
       copia.setAttribute("ondrop", "ordenarDestaque(event)");
       copia.setAttribute("ondragover", "permitirDrop(event)");
       copia.setAttribute("draggable", "true");
-      copia.classList.remove("arrastando");
+      copia.classList.remove("arrastando");      
 
-      //console.log(copia);
+      copia.children[4].appendChild(btnDeletar);
+      
+      // if (tabela.children[0].children.length < 2) {
+      //   titulo.insertAdjacentElement('afterend', copia);
+      // }
 
-      copia.children[3].appendChild(btnDeletar);      
-
-      if (e.target.parentNode.id == 'titulo') {
-        if (tabela.children[0].children.length < 2) {
-          titulo.insertAdjacentElement('afterend', copia);
-        } else if (!existe(copia.id) && tabela.children[0].children.length < 9 ) {            
-          titulo.insertAdjacentElement('afterend', copia);
-        } else {
-          //
-        }
-
-      } else {
-        //    
+      if (!existe(copia.id) && tabela.children[0].children.length < 9 ) {            
+        titulo.insertAdjacentElement('afterend', copia);
       }
 
-    } else {
-      //
+      salvarDestaques();
     }
-
-    salvarDestaques();
-
+    
   } catch (error) {
     console.log(error);
-  }
+    
+  }    
 }
 
 function inicioArrastaDestaque(e) {

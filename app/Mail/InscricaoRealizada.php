@@ -31,7 +31,7 @@ class InscricaoRealizada extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Inscricao Realizada',
+            subject: 'Inscrição Realizada',
         );
     }
 

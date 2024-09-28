@@ -1,6 +1,6 @@
 @extends('app')
 @section('conteudo')
-@include('layout.navhome')
+@include('painel.layout.navpainel')
 
 <div class="container-fluid mt-2 mb-2" id="bannerTorneios">
 	<div class="row">
@@ -10,7 +10,7 @@
     </div>
             <div class="row">
                 <div class="col-3">
-                    <p class="text-center">#{{ $campeonato->titulo }}</p>
+                    <p class="text-center">#{{ $campeonato->id }}</p>
                 </div>
             
                 <div class="col-3">
@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="col-3">
-                    <p class="text-center">{{ $campeonato->getdata() }}</p>
+                    <p class="text-center">{{ $campeonato->getData() }}</p>
                 </div>
             </div>	
 </div>

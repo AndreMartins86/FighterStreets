@@ -4,19 +4,25 @@ namespace App\Http\Controllers;
 
 //use App\Http\Requests\TorneioRequest;
 use App\Models\Campeonato;
+use App\Models\Chave;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Collection as SupportCollection;
+//use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+//use App\Http\Controllers\ChavesTrait;
+
 
 
 class PainelTorneioController extends Controller
 {
+    use ChavesTrait;
+
     public function painelLogin(): View
     {
         return view('painel.painel_login');
@@ -245,7 +251,7 @@ class PainelTorneioController extends Controller
             ]);            
         }
 
-        return response()->json(['success'=>'Destaque salvo']);        
+        return response()->json(['success'=>'Destaque salvo']);
     }
 
     private function regras(): Array
@@ -263,15 +269,28 @@ class PainelTorneioController extends Controller
         ];        
     }
 
-    private function destaques(): SupportCollection
+    private function destaques(): Collection
     {
-        $destaques = DB::table('campeonatos')
-        ->join('destaques','campeonatos.id', '=', 'destaques.campeonato_id')
+        //$destaques = DB::table('campeonatos')
+        $destaques = Campeonato::join('destaques','campeonatos.id', '=', 'destaques.campeonato_id')
         ->join('estados','campeonatos.estado_id', '=', 'estados.id')
         ->selectRaw('destaques.posicao, campeonatos.id, titulo, DATE_FORMAT(campeonatos.data, "%d/%m/%Y") as "data", cidade, estados.sigla')
         ->get();
-
+        
         return $destaques;
+    }
+
+    public function chaves($id): View
+    {        
+        $campeonato = Campeonato::find($id);
+
+        return view('painel.painel_chave_detalhes', compact('campeonato'));        
+    }
+
+    public function criarChaves($id)
+    {
+        
+
     }
    
 }
