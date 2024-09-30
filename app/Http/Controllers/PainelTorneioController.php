@@ -15,13 +15,13 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
-//use App\Http\Controllers\ChavesTrait;
+
 
 
 
 class PainelTorneioController extends Controller
 {
-    use ChavesTrait;
+    use ChavesTrait{ ChavesTrait::chaveInicial as chaveInicial; }
 
     public function painelLogin(): View
     {
@@ -276,7 +276,7 @@ class PainelTorneioController extends Controller
         ->join('estados','campeonatos.estado_id', '=', 'estados.id')
         ->selectRaw('destaques.posicao, campeonatos.id, titulo, DATE_FORMAT(campeonatos.data, "%d/%m/%Y") as "data", cidade, estados.sigla')
         ->get();
-        
+
         return $destaques;
     }
 
@@ -289,8 +289,11 @@ class PainelTorneioController extends Controller
 
     public function criarChaves($id)
     {
-        
+        $this->chaveInicial($id);
 
+        $campeonato = Campeonato::find($id);
+
+        return view('painel.painel_chave_detalhes', compact('campeonato'));
     }
    
 }

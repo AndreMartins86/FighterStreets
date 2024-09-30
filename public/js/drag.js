@@ -84,11 +84,9 @@ function dropDestaque(e) {
 
       copia.children[4].appendChild(btnDeletar);
       
-      // if (tabela.children[0].children.length < 2) {
-      //   titulo.insertAdjacentElement('afterend', copia);
-      // }
-
-      if (!existe(copia.id) && tabela.children[0].children.length < 9 ) {            
+      if (tabela.children[0].children.length < 2) {
+        titulo.insertAdjacentElement('afterend', copia);
+      } else if (!existe(copia.id) && tabela.children[0].children.length < 9 ) {            
         titulo.insertAdjacentElement('afterend', copia);
       }
 
