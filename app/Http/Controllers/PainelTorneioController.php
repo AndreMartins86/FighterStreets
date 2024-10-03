@@ -234,7 +234,7 @@ class PainelTorneioController extends Controller
         return view('painel.painel_torneio', compact('campeonatos', 'destaques'));
     }
 
-    public function salvarDestaques(Request $req)
+    public function salvarDestaques(Request $req): JsonResponse
     {
         $tam = count($req->all());
         $vetor = array_values($req->all());  

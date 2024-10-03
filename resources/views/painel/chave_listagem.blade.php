@@ -10,7 +10,7 @@
     </div>
             <div class="row">
                 <div class="col-3">
-                    <p class="text-center">{{ $campeonato->id }}</p>
+                    <p class="text-center">#{{ $campeonato->id }}</p>
                 </div>
             
                 <div class="col-3">
@@ -43,15 +43,16 @@
         <div class="col-6">
             <h3>Peso Leve</h3>
             <ul class="list-group">
-                <li class="list-group-item">Masculino</li>
-                <li class="list-group-item">Feminino</li>
+                <li class="list-group-item"><a href="{{ route('painel-chaves.detalhes', [$campeonato->id, 'feminino', 'leve', 'marrom']) }}">Feminino</a></li> 
+                <li class="list-group-item"><a href="{{ route('painel-chaves.detalhes', [$campeonato->id, 'masculino', 'leve', 'marrom']) }}">Masculino</a></li>
+                
             </ul>
         </div>
         <div class="col-6">
             <h3>Peso Pesado</h3>
             <ul class="list-group"  >
-                <li class="list-group-item">Masculino</li>
-                <li class="list-group-item">Feminino</li>
+                <li class="list-group-item"><a href="{{ route('painel-chaves.detalhes', [$campeonato->id, 'feminino', 'pesado', 'marrom']) }}">Feminino</a></li> 
+                <li class="list-group-item"><a href="{{ route('painel-chaves.detalhes', [$campeonato->id, 'masculino', 'pesado', 'marrom']) }}">Masculino</a></li>
             </ul>
             
         </div>
@@ -65,15 +66,15 @@
         <div class="col-6">
             <h3>Peso Leve</h3>
             <ul class="list-group">
-                <li class="list-group-item">Masculino</li>
-                <li class="list-group-item">Feminino</li>
+                <li class="list-group-item"><a href="{{ route('painel-chaves.detalhes', [$campeonato->id, 'feminino', 'leve', 'preta']) }}">Feminino</a></li> 
+                <li class="list-group-item"><a href="{{ route('painel-chaves.detalhes', [$campeonato->id, 'masculino', 'leve', 'preta']) }}">Masculino</a></li>
             </ul>
         </div>
         <div class="col-6">
             <h3>Peso Pesado</h3>
             <ul class="list-group"  >
-                <li class="list-group-item">Masculino</li>
-                <li class="list-group-item">Feminino</li>
+                <li class="list-group-item"><a href="{{ route('painel-chaves.detalhes', [$campeonato->id, 'feminino', 'pesado', 'preta']) }}">Feminino</a></li> 
+                <li class="list-group-item"><a href="{{ route('painel-chaves.detalhes', [$campeonato->id, 'masculino', 'pesado', 'preta']) }}">Masculino</a></li>
             </ul>            
         </div>
     </div>
