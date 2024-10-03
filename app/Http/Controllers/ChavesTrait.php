@@ -116,7 +116,7 @@ trait ChavesTrait {
           }
 
         if ($atletas[$p1]['equipe'] == $atletas[$p2]['equipe'] && $rep < $tam) {
-          $rep++;
+          $rep++;                    
           continue;
         }
 

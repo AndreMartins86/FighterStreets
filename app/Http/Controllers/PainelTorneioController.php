@@ -280,20 +280,29 @@ class PainelTorneioController extends Controller
         return $destaques;
     }
 
-    public function chaves($id): View
-    {        
-        $campeonato = Campeonato::find($id);
-
-        return view('painel.painel_chave_detalhes', compact('campeonato'));        
-    }
-
     public function criarChaves($id)
     {
         $this->chaveInicial($id);
 
         $campeonato = Campeonato::find($id);
 
-        return view('painel.painel_chave_detalhes', compact('campeonato'));
+        return view('painel.chave_listagem', compact('campeonato'));
     }
+
+    public function chavesListagem($id): View
+    {
+        $campeonato = Campeonato::find($id);
+
+        return view('painel.chave_listagem', compact('campeonato'));
+
+    }
+
+    public function chavesDetalhes($id): View
+    {        
+        $campeonato = Campeonato::find($id);
+
+        return view('painel.chave_detalhes', compact('campeonato'));
+    }
+    
    
 }

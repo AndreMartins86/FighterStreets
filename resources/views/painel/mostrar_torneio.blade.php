@@ -37,7 +37,7 @@
                     
                 @elseif ($camp->fase_id == 2)
 
-                <a href="{{ route('painel-chaves', $camp->id) }}">
+                <a href="{{ route('painel-chave.listagem', $camp->id) }}">
                     <button type="button" class="btn btn-primary" title="Chaves">Chaves</button>
                 </a>
 

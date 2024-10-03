@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
             $atletasFemPretaLeve = $atletas->where('sexo_id', 1)
             ->where('faixa_id', 2)
             ->where('peso_id', 1)
-            ->random(12);
+            ->random(16);
 
             foreach($atletasFemPretaLeve as $salvandoAtletas){
                 $camps->atletas()->attach($salvandoAtletas->id,
@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
             $atletasFemPretaPesado = $atletas->where('sexo_id', 1)
             ->where('faixa_id', 2)
             ->where('peso_id', 2)
-            ->random(12);
+            ->random(16);
 
             foreach($atletasFemPretaPesado as $salvandoAtletas){
                 $camps->atletas()->attach($salvandoAtletas->id,
@@ -57,7 +57,7 @@ class DatabaseSeeder extends Seeder
             $atletasFemMarromLeve = $atletas->where('sexo_id', 1)
             ->where('faixa_id', 1)
             ->where('peso_id', 1)
-            ->random(12);
+            ->random(16);
 
             foreach($atletasFemMarromLeve as $salvandoAtletas){
                 $camps->atletas()->attach($salvandoAtletas->id,
@@ -67,7 +67,7 @@ class DatabaseSeeder extends Seeder
             $atletasFemMarromPesado = $atletas->where('sexo_id', 1)
             ->where('faixa_id', 1)
             ->where('peso_id', 2)
-            ->random(12);
+            ->random(16);
 
             foreach($atletasFemMarromPesado as $salvandoAtletas){
                 $camps->atletas()->attach($salvandoAtletas->id,
@@ -78,7 +78,7 @@ class DatabaseSeeder extends Seeder
             $atletasMasPretaLeve = $atletas->where('sexo_id', 2)
             ->where('faixa_id', 2)
             ->where('peso_id', 1)
-            ->random(12);
+            ->random(16);
 
             foreach($atletasMasPretaLeve as $salvandoAtletas){
                 $camps->atletas()->attach($salvandoAtletas->id,
@@ -88,7 +88,7 @@ class DatabaseSeeder extends Seeder
             $atletasMasPretaPesado = $atletas->where('sexo_id', 2)
             ->where('faixa_id', 2)
             ->where('peso_id', 2)
-            ->random(12);
+            ->random(16);
 
             foreach($atletasMasPretaPesado as $salvandoAtletas){
                 $camps->atletas()->attach($salvandoAtletas->id,
@@ -98,7 +98,7 @@ class DatabaseSeeder extends Seeder
             $atletasMasMarromLeve = $atletas->where('sexo_id', 2)
             ->where('faixa_id', 1)
             ->where('peso_id', 1)
-            ->random(12);
+            ->random(16);
 
             foreach($atletasMasMarromLeve as $salvandoAtletas){
                 $camps->atletas()->attach($salvandoAtletas->id,
@@ -108,7 +108,7 @@ class DatabaseSeeder extends Seeder
             $atletasMasMarromPesado = $atletas->where('sexo_id', 2)
             ->where('faixa_id', 1)
             ->where('peso_id', 2)
-            ->random(12);
+            ->random(16);
 
             foreach($atletasMasMarromPesado as $salvandoAtletas){
                 $camps->atletas()->attach($salvandoAtletas->id,

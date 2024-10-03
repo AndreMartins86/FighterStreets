@@ -12,7 +12,7 @@
 				<form action="{{ route('a.logar') }}" method="POST">
 					@csrf
   						<label for="email" class="form-label">Email</label>
-  						<input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" value="hudson43@example.org">
+  						<input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" value="powlowski.mia@example.org">
 					</div>
 					<div class="mb-3">
   						<label for="senha" class="form-label">Senha</label>
