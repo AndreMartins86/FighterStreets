@@ -27,6 +27,19 @@
             </div>	
 </div>
 
+
+@if (session()->has('msg'))
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-success">
+                <p>{{ session()->get('msg') }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+
 <div class="container">
     <div class="row mb-3 mt-3">
         <div class="col-12 text-center">

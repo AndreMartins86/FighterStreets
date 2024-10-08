@@ -28,9 +28,9 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->count(2)->create();
 
-        $campeonatos = Campeonato::factory()->count(15)->create();
+        $campeonatos = Campeonato::factory()->count(10)->create();
 
-        $atletas = Atleta::factory()->count(200)->create();
+        $atletas = Atleta::factory()->count(400)->create();
 
         foreach($campeonatos as $camps){
             ///////////Feminino//////////////////////////////////

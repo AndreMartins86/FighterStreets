@@ -24,12 +24,12 @@ class Atleta extends Authenticatable //Para a autenticação em outra tabela
 
     public function getFaixa()
     {
-        return $faixa = DB::table('faixas')->where('id', $this->faixa_id)->value('faixa');
+        return DB::table('faixas')->where('id', $this->faixa_id)->value('faixa');
     }
 
     public function getPeso()
     {
-        return $peso = DB::table('pesos')->where('id', $this->peso_id)->value('peso');
+        return DB::table('pesos')->where('id', $this->peso_id)->value('peso');
     }
     
 }

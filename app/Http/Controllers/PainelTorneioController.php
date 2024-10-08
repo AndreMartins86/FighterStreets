@@ -17,11 +17,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
 
-
-
 class PainelTorneioController extends Controller
 {
-    use ChavesTrait{ ChavesTrait::chaveInicial as chaveInicial; }
+    //use ChavesTrait{ ChavesTrait::chaveInicial as chaveInicial; }
 
     public function painelLogin(): View
     {
@@ -282,9 +280,13 @@ class PainelTorneioController extends Controller
 
     public function criarChaves($id)
     {
-        $this->chaveInicial($id);
+        //$this->chaveInicial($id);
+        Chave::chaveInicial($id);
 
         $campeonato = Campeonato::find($id);
+
+        session()->flash('msg', 'Chaves criadas');
+        //https://www.youtube.com/watch?v=xt6wNqKYp68
 
         return view('painel.chave_listagem', compact('campeonato'));
     }
@@ -297,11 +299,13 @@ class PainelTorneioController extends Controller
 
     }
 
-    public function chavesDetalhes($id): View
+    public function chavesDetalhes($id, $sexo, $peso, $faixa): View
     {        
         $campeonato = Campeonato::find($id);
+        $chaves = Chave::buscarChavesDetalhes($id, $sexo, $peso, $faixa);
+        dd($chaves);
 
-        return view('painel.chave_detalhes', compact('campeonato'));
+        return view('painel.chave_detalhes', compact('campeonato', 'chaves'));
     }
     
    

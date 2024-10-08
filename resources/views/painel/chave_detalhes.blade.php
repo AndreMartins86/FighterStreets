@@ -35,8 +35,9 @@
     </div>
     <div class="row mb-3 mt-3">
         <div class="col-12 text-center">
-            <p><span class="badge text-bg-dark"> Faixa Preta </span><span> Peso Leve </span>
-                <span> Masculino </span></p>
+            <p><span class="badge text-bg-dark"> Faixa {{ $chaves[0]->getFaixa() }} </span>
+                <span class="badge text-bg-dark"> Peso {{ $chaves[0]->getPeso() }} </span>
+                <span class="badge text-bg-dark">{{ $chaves[0]->getSexo() }} </span></p>
         </div>
     </div>
 </div>

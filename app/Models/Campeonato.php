@@ -33,12 +33,12 @@ class Campeonato extends Model
 
     public function getFase()
     {
-        return $fase = DB::table('fases')->where('id', $this->fase_id)->value('fase');
+        return DB::table('fases')->where('id', $this->fase_id)->value('fase');
     }
 
     public function getEstado()
     {
-        return $estado = DB::table('estados')->where('id', $this->estado_id)->value('sigla');
+        return DB::table('estados')->where('id', $this->estado_id)->value('sigla');
     }
 
     public function getData()
@@ -55,12 +55,12 @@ class Campeonato extends Model
             setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
             date_default_timezone_set('America/Sao_Paulo');
 
-            return $data = $dataCampeonato->format(strtotime($this->data));
+            return $dataCampeonato->format(strtotime($this->data));
     }
 
     public function getTipo()
     {
-        return $tipo = DB::table('tipos')->where('id', $this->tipo_id)->value('tipo');
+        return DB::table('tipos')->where('id', $this->tipo_id)->value('tipo');
     }
 
     public function getLocal()
