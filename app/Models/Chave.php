@@ -79,12 +79,12 @@ class Chave extends Model
       $masPretaPesado = $campeonato->atletas()
       ->where('sexo_id', 2)
       ->where('faixa_id', 2)
-      ->where('peso_id', 2)      
+      ->where('peso_id', 2)
       ->get();
 
       self::formarChaves($femMarromLeve, $campeonato);
       self::formarChaves($femMarromPesado, $campeonato);
-      self::formarChaves($femPretaLeve, $campeonato);
+      self::formarChaves($femPretaLeve, $campeonato);      
       self::formarChaves($femPretaPesado, $campeonato);
 
       self::formarChaves($masMarromLeve, $campeonato);
@@ -103,7 +103,11 @@ class Chave extends Model
       $atletas = $atlet->toArray();
       
       $p1 = $p2 = $rep = 0;
-      $numLuta = 1;      
+      $numLuta = 1;
+      $totalAtletas = count($atletas);
+      $sexoID = $atletas[0]['sexo_id'];
+      $pesoID = $atletas[0]['peso_id'];
+      $faixaID = $atletas[0]['faixa_id'];
 
       do {
 
@@ -145,7 +149,29 @@ class Chave extends Model
         }       
 
       } while ($atletas != null);
+
+      $qtdeDisputasInicial = ($totalAtletas/2) + 1;
+      //$totalDisputas = $totalAtletas;
+
+      //campeonato_id	numeroLuta	lutador_1	lutador_2	vencedor	sexo_id	faixa_id	peso_id	created_at	updated_at	
       
+
+      for ($i=$qtdeDisputasInicial; $i <= $totalAtletas; $i++) {
+
+        $chave = Chave::create([
+          'campeonato_id' => $camp->id,
+          'numeroLuta' => $i,
+          //'lutador_1' => null,
+          //'lutador_2' => null,
+          //'vencedor' => null,
+          'sexo_id' => $sexoID,
+          'faixa_id' => $faixaID,
+          'peso_id' => $pesoID,
+          'created_at' => now()
+        ]);
+
+        $chave->save();        
+      }      
     }
 
     private static function salvarLuta(Array $atletas,Campeonato $camp, int $numLuta, int $p1, int $p2)
@@ -173,7 +199,7 @@ class Chave extends Model
         ->where('peso_id', $IDs[1])
         ->where('faixa_id', $IDs[2])
         ->orderBy('numeroLuta')
-        ->get();        
+        ->get();
 
     }
 

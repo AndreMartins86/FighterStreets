@@ -303,7 +303,7 @@ class PainelTorneioController extends Controller
     {        
         $campeonato = Campeonato::find($id);
         $chaves = Chave::buscarChavesDetalhes($id, $sexo, $peso, $faixa);
-        dd($chaves);
+        //dd($chaves);
 
         return view('painel.chave_detalhes', compact('campeonato', 'chaves'));
     }
