@@ -44,95 +44,26 @@
 
 <div class="container-fluid mt-3 mb-3">
     <div class="row align-items-center">
+
+        @while ($fases > 0)
         <div class="col-3">
-            <p class="disputa mt-3">Disputa 1</p>
-            <ul class="list-group">
-                <li class="list-group-item">João Silva<span>Equipe Cobra Kai</span></li>
-                <li class="list-group-item">Pedro Santos<span>Equipe Musashi</span></li>
-            </ul>
 
-            <p class="disputa mt-3">Disputa 2</p>
+            @for ($i=0;$i<8;$i++)
+            <p class="disputa mt-3">Luta: {{ $chaves[$i]->numeroLuta }}</p>
             <ul class="list-group">
-                <li class="list-group-item">João Silva<span>Equipe Cobra Kai</span></li>
-                <li class="list-group-item">Pedro Santos<span>Equipe Musashi</span></li>
+                <li class="list-group-item">{{ $chaves[$i]->nomeLutador1 }}<span>{{ $chaves[$i]->equipeLutador1 }}</span></li>
+                <li class="list-group-item">{{ $chaves[$i]->nomeLutador2 }}<span>{{ $chaves[$i]->equipeLutador2 }}</span></li>
             </ul>
+                
+            @endfor
 
-            <p class="disputa mt-3">Disputa 3</p>
-            <ul class="list-group">
-                <li class="list-group-item">João Silva<span>Equipe Cobra Kai</span></li>
-                <li class="list-group-item">Pedro Santos<span>Equipe Musashi</span></li>
-            </ul>
-
-            <p class="disputa mt-3">Disputa 4</p>
-            <ul class="list-group">
-                <li class="list-group-item">João Silva<span>Equipe Cobra Kai</span></li>
-                <li class="list-group-item">Pedro Santos<span>Equipe Musashi</span></li>
-            </ul>
-
-            <p class="disputa mt-3">Disputa 5</p>
-            <ul class="list-group">
-                <li class="list-group-item">João Silva<span>Equipe Cobra Kai</span></li>
-                <li class="list-group-item">Pedro Santos<span>Equipe Musashi</span></li>
-            </ul>
-
-            <p class="disputa mt-3">Disputa 6</p>
-            <ul class="list-group">
-                <li class="list-group-item">João Silva<span>Equipe Cobra Kai</span></li>
-                <li class="list-group-item">Pedro Santos<span>Equipe Musashi</span></li>
-            </ul>
-            
+            @php
+            $fases--;                
+            @endphp
+        
         </div>
-
-        <div class="col-3">
-            <p class="disputa mt-3">Disputa 7</p>
-            <ul class="list-group">
-                <li class="list-group-item">João Silva<span>Equipe Cobra Kai</span></li>
-                <li class="list-group-item">Pedro Santos<span>Equipe Musashi</span></li>
-            </ul>
-
-            <p class="disputa mt-3">Disputa 8</p>
-            <ul class="list-group">
-                <li class="list-group-item">João Silva<span>Equipe Cobra Kai</span></li>
-                <li class="list-group-item">Pedro Santos<span>Equipe Musashi</span></li>
-            </ul>
-
-            <p class="disputa mt-3">Disputa 9</p>
-            <ul class="list-group">
-                <li class="list-group-item">João Silva<span>Equipe Cobra Kai</span></li>
-                <li class="list-group-item">Pedro Santos<span>Equipe Musashi</span></li>
-            </ul>
             
-        </div>
-
-        <div class="col-3">
-            <p class="disputa mt-3">Disputa 10</p>
-            <ul class="list-group">
-                <li class="list-group-item">João Silva<span>Equipe Cobra Kai</span></li>
-                <li class="list-group-item">Pedro Santos<span>Equipe Musashi</span></li>
-            </ul>
-
-            <p class="disputa mt-3">Disputa 11</p>
-            <ul class="list-group">
-                <li class="list-group-item">João Silva<span>Equipe Cobra Kai</span></li>
-                <li class="list-group-item">Pedro Santos<span>Equipe Musashi</span></li>
-            </ul>
-            
-        </div>
-
-        <div class="col-3">
-            <p class="disputa mt-3">Disputa 12 - Final</p>
-            <ul class="list-group">
-                <li class="list-group-item">João Silva<span>Equipe Cobra Kai</span></li>
-                <li class="list-group-item">Pedro Santos<span>Equipe Musashi</span></li>
-            </ul>
-
-            <p class="disputa mt-3">Disputa 13 - 3 lugar</p>
-            <ul class="list-group">
-                <li class="list-group-item">João Silva<span>Equipe Cobra Kai</span></li>
-                <li class="list-group-item">Pedro Santos<span>Equipe Musashi</span></li>
-            </ul>
-            
-        </div>
+        @endwhile
 
     </div>
 </div>

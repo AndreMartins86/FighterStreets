@@ -70,7 +70,7 @@
             
         </div>
     </div>
-    <div class="row mb-3 mt-3">
+    <div class="row mb-3 mt-4">
         <div class="col-12 text-center">
         <h3>Faixa Preta</h3>
       </div>

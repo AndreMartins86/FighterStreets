@@ -271,7 +271,7 @@ class PainelTorneioController extends Controller
     {
         //$destaques = DB::table('campeonatos')
         $destaques = Campeonato::join('destaques','campeonatos.id', '=', 'destaques.campeonato_id')
-        ->join('estados','campeonatos.estado_id', '=', 'estados.id')
+        ->join('estados','campeonatos.estado_id', '=', 'estados.id')        
         ->selectRaw('destaques.posicao, campeonatos.id, titulo, DATE_FORMAT(campeonatos.data, "%d/%m/%Y") as "data", cidade, estados.sigla')
         ->get();
 
@@ -303,9 +303,26 @@ class PainelTorneioController extends Controller
     {        
         $campeonato = Campeonato::find($id);
         $chaves = Chave::buscarChavesDetalhes($id, $sexo, $peso, $faixa);
+        $fases = $this->contarFases($chaves);
         //dd($chaves);
 
-        return view('painel.chave_detalhes', compact('campeonato', 'chaves'));
+        return view('painel.chave_detalhes', compact('campeonato', 'chaves', 'fases'));
+    }
+
+    private function contarFases(Collection $chaves)
+    {
+        $total = count($chaves);
+        $fases = 1;
+
+        do
+        {
+
+        $total = $total / 2;
+        $fases++;
+
+        } while($total > 2);
+
+        return $fases;
     }
     
    

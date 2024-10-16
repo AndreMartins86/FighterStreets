@@ -190,17 +190,18 @@ class Chave extends Model
       
     }
 
-    public static function buscarChavesDetalhes($id, $sexo, $peso, $faixa): Collection
+    protected static function buscarChavesDetalhes($id, $sexo, $peso, $faixa): Collection
     {
         $IDs = self::getIDs($sexo, $peso, $faixa);
 
-        return Chave::where('campeonato_id', $id)
-        ->where('sexo_id', $IDs[0] )
-        ->where('peso_id', $IDs[1])
-        ->where('faixa_id', $IDs[2])
-        ->orderBy('numeroLuta')
-        ->get();
-
+        return Chave::fromQuery("SELECT numeroLuta, lutador_1, lut1.nome AS 'nomeLutador1', lut1.equipe AS 'equipeLutador1', lutador_2, lut2.nome AS 'nomeLutador2', lut2.equipe AS 'equipeLutador2', vencedor, chaves.sexo_id, chaves.peso_id, chaves.faixa_id FROM chaves
+        INNER JOIN atletas AS lut1 ON chaves.lutador_1 = lut1.id 
+        INNER JOIN atletas AS lut2 ON chaves.lutador_2 = lut2.id
+        WHERE campeonato_id = ? AND chaves.sexo_id = ? AND chaves.peso_id = ? AND chaves.faixa_id = ?
+        UNION SELECT numeroLuta, lutador_1, IFNULL(lutador_1, 'Aguardando...'), IFNULL(lutador_1, 'Aguardando...') AS 'equipeLutador1', lutador_2, IFNULL(lutador_2, 'Aguardando...'), IFNULL(lutador_2, 'Aguardando...') AS 'equipeLutador2', vencedor, chaves.sexo_id, chaves.peso_id, chaves.faixa_id FROM chaves
+        WHERE chaves.sexo_id = ? AND chaves.peso_id = ? AND chaves.faixa_id = ? AND (lutador_1 IS NULL OR lutador_2 IS NULL)
+        ORDER BY numeroLuta;",
+        [$id, $IDs[0], $IDs[1], $IDs[2], $IDs[0], $IDs[1], $IDs[2]]);
     }
 
     public function getFaixa()
