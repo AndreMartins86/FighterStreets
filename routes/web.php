@@ -30,7 +30,9 @@ Route::view('/criar-conta', 'inscricao')->name('criar.atleta');
 
 Route::view('/err', 'erro')->name('erro');
 
-Route::view('/chaves', 'chave_detalhes')->name('chaves.detalhes');
+Route::get('/chaves/{id}/{sexo}/{peso}/{faixa}', [HomeController::class, 'chavesDetalhes'])->name('chaves.detalhes');
+
+Route::get('/chaves-listagem/{id}', [HomeController::class, 'chavesListagem'])->name('chaves.listagem');
 
 Route::post('/cadastrado', [HomeController::class, 'atletaCadastro'])->name('atleta.cadastrado');
 
@@ -80,9 +82,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/encerrar-inscricoes/{id}', [PainelTorneioController::class, 'criarChaves'])->name('painel-criar.chaves');
 
-    Route::get('/chave-listagem/{id}', [PainelTorneioController::class, 'chavesListagem'])->name('painel-chave.listagem');
+    Route::get('/painel-chave-listagem/{id}', [PainelTorneioController::class, 'chavesListagem'])->name('painel-chave.listagem');
     
-    Route::get('/chaves/{id}/{sexo}/{peso}/{faixa}', [PainelTorneioController::class, 'chavesDetalhes'])->name('painel-chaves.detalhes');
+    Route::get('/painel-chaves/{id}/{sexo}/{peso}/{faixa}', [PainelTorneioController::class, 'chavesDetalhes'])->name('painel-chaves.detalhes');
 
     Route::get('/resultados/{id}', [PainelTorneioController::class, 'resultados'])->name('painel-resultados');
 

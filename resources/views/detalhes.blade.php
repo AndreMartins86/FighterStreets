@@ -69,7 +69,7 @@
                         <button type="button" class="btn btn-primary">Inscrição</button>
                     </a>                    
                 @elseif ($campeonato->fase_id == 2)
-                    <a href="{{ route('chaves.detalhes', $campeonato->id) }}">
+                    <a href="{{ route('chaves.listagem', $campeonato->id) }}">                    
                         <button type="button" class="btn btn-primary">Veja as chaves</button>
                     </a>                
                 @else
@@ -93,7 +93,7 @@
                         <button type="button" class="btn btn-primary" title="Crie sua conta para fazer a inscrição">Criar conta aqui</button>
                     </a>
                 @elseif ($campeonato->fase_id == 2)
-                    <a href="{{-- --}}">                        
+                    <a href="{{ route('chaves.listagem', $campeonato->id) }}">                        
                         <button type="button" class="btn btn-primary">Veja as chaves</button>
                     </a>
                 @else

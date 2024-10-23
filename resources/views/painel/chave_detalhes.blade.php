@@ -48,6 +48,7 @@
             $cont = 0;                 
             $aux = 0;     
             $j = -1;
+            
         @endphp
 
         @while ($fases > 0)
@@ -55,7 +56,7 @@
 
             @for ($i=0;$i<$contadorChaves[$cont];$i++)
             @php
-                $contador++;
+                $j++;
             @endphp
             
             <p class="disputa mt-3">Luta: {{ $chaves[$j]->numeroLuta }}</p>

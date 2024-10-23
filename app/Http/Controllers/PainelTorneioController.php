@@ -307,7 +307,7 @@ class PainelTorneioController extends Controller
         return view('painel.chave_detalhes', compact('campeonato', 'chaves', 'fases', 'contadorChaves'));
     }
 
-    private function contarFases(Collection $chaves)
+    public static function contarFases(Collection $chaves): int
     {
         $total = count($chaves);
         $fases = 1;

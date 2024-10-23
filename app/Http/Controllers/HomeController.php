@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AtletaRequest;
 use App\Models\Atleta;
+use App\Models\Chave;
+use App\Models\Campeonato;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use App\Models\Campeonato;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Arr;
+use App\Http\Controllers\PainelTorneioController;
+
 
 class HomeController extends Controller
 {
@@ -120,5 +123,24 @@ class HomeController extends Controller
     public function reloadCaptcha()
     {
         return response()->json(['captcha' => captcha_img('flat')]);
+    }
+
+    public function chavesListagem($id): View
+    {
+        $campeonato = Campeonato::find($id);
+
+        return view('chaves_listagem', compact('campeonato'));
+        
+    }
+
+    public function chavesDetalhes($id, $sexo, $peso, $faixa): View
+    {
+        $campeonato = Campeonato::find($id);                
+        $chaves = Chave::buscarChavesDetalhes($id, $sexo, $peso, $faixa);
+        $contadorChaves = Chave::contadorChaves($campeonato, $sexo, $peso, $faixa);
+        $fases = PainelTorneioController::contarFases($chaves);
+
+        return view('painel.chave_detalhes', compact('campeonato', 'chaves', 'fases', 'contadorChaves'));    
+        
     }
 }
