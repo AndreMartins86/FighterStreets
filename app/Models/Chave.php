@@ -204,6 +204,32 @@ class Chave extends Model
         [$id, $IDs[0], $IDs[1], $IDs[2], $IDs[0], $IDs[1], $IDs[2]]);
     }
 
+    protected static function contadorChaves($camp, $sexo, $peso, $faixa): Array
+    {
+      $IDs = self::getIDs($sexo, $peso, $faixa);
+
+      $totalAtletas = $camp->atletas()
+      ->where('sexo_id', $IDs[0])
+      ->where('peso_id', $IDs[1])   
+      ->where('faixa_id', $IDs[2])         
+      ->count();      
+
+      $vet = [];
+      $i = 0;
+
+      do {
+
+        $totalAtletas = $totalAtletas / 2;
+        $vet[$i] = $totalAtletas;
+        $i++;
+        
+      } while ($totalAtletas > 2);
+
+      array_push($vet, 2);
+
+      return $vet;
+    }
+    
     public function getFaixa()
     {
         return DB::table('faixas')->where('id', $this->faixa_id)->value('faixa');

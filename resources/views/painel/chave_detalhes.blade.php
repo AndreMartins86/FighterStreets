@@ -44,21 +44,39 @@
 
 <div class="container-fluid mt-3 mb-3">
     <div class="row align-items-center">
+        @php
+            $cont = 0;                 
+            $aux = 0;     
+            $j = -1;
+        @endphp
 
         @while ($fases > 0)
         <div class="col-3">
 
-            @for ($i=0;$i<8;$i++)
-            <p class="disputa mt-3">Luta: {{ $chaves[$i]->numeroLuta }}</p>
+            @for ($i=0;$i<$contadorChaves[$cont];$i++)
+            @php
+                $contador++;
+            @endphp
+            
+            <p class="disputa mt-3">Luta: {{ $chaves[$j]->numeroLuta }}</p>
             <ul class="list-group">
-                <li class="list-group-item">{{ $chaves[$i]->nomeLutador1 }}<span>{{ $chaves[$i]->equipeLutador1 }}</span></li>
-                <li class="list-group-item">{{ $chaves[$i]->nomeLutador2 }}<span>{{ $chaves[$i]->equipeLutador2 }}</span></li>
+                <li class="list-group-item">{{ $chaves[$j]->nomeLutador1 }}<span>{{ $chaves[$j]->equipeLutador1 }}</span></li>
+                <li class="list-group-item">{{ $chaves[$j]->nomeLutador2 }}<span>{{ $chaves[$j]->equipeLutador2 }}</span></li>
             </ul>
+
+            @php
+            $aux++;
+             if ($aux == $contadorChaves[$cont]) {
+                $cont++;
+                $aux = 0;
+                break;
+             }              
+            @endphp           
                 
             @endfor
 
             @php
-            $fases--;                
+            $fases--;
             @endphp
         
         </div>

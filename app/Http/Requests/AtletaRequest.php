@@ -31,12 +31,12 @@ class AtletaRequest extends FormRequest
         return [
             'nome' => 'required|min:10',
             'cpf' => 'required|min:11|numeric|unique:App\Models\Atleta,cpf',
-            'sexo_id' => 'required',
-            'faixa_id' => 'required',
+            'sexo_id' => 'required|numeric|integer',
+            'faixa_id' => 'required|numeric|integer',
+            'peso_id' => 'required|numeric|integer',
             'password' => 'required|confirmed',
             'dataNascimento' => 'required|date',
-            'equipe' => 'required|min:3',
-            'peso_id' => 'required',
+            'equipe' => 'required|min:3',            
             'email' => 'required|email|unique:App\Models\Atleta,email',
             'captcha' => 'required|captcha'
         ];

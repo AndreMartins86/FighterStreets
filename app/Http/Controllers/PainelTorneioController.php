@@ -285,8 +285,7 @@ class PainelTorneioController extends Controller
 
         $campeonato = Campeonato::find($id);
 
-        session()->flash('msg', 'Chaves criadas');
-        //https://www.youtube.com/watch?v=xt6wNqKYp68
+        session()->flash('msg', 'Chaves criadas');        
 
         return view('painel.chave_listagem', compact('campeonato'));
     }
@@ -296,17 +295,16 @@ class PainelTorneioController extends Controller
         $campeonato = Campeonato::find($id);
 
         return view('painel.chave_listagem', compact('campeonato'));
-
     }
 
     public function chavesDetalhes($id, $sexo, $peso, $faixa): View
     {        
-        $campeonato = Campeonato::find($id);
+        $campeonato = Campeonato::find($id);                
         $chaves = Chave::buscarChavesDetalhes($id, $sexo, $peso, $faixa);
-        $fases = $this->contarFases($chaves);
-        //dd($chaves);
+        $contadorChaves = Chave::contadorChaves($campeonato, $sexo, $peso, $faixa);
+        $fases = $this->contarFases($chaves);        
 
-        return view('painel.chave_detalhes', compact('campeonato', 'chaves', 'fases'));
+        return view('painel.chave_detalhes', compact('campeonato', 'chaves', 'fases', 'contadorChaves'));
     }
 
     private function contarFases(Collection $chaves)
