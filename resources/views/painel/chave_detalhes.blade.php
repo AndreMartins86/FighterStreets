@@ -44,6 +44,7 @@
 
 <div class="container-fluid mt-3 mb-3">
     <div class="row align-items-center">
+        <!--This is a comment. Comments are not displayed in the browser-->
         @php
             $cont = 0;                 
             $aux = 0;     

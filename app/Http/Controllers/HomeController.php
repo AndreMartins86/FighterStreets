@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Arr;
-use App\Http\Controllers\PainelTorneioController;
+//use App\Http\Controllers\PainelTorneioController;
 
 
 class HomeController extends Controller
@@ -130,7 +130,6 @@ class HomeController extends Controller
         $campeonato = Campeonato::find($id);
 
         return view('chaves_listagem', compact('campeonato'));
-        
     }
 
     public function chavesDetalhes($id, $sexo, $peso, $faixa): View
@@ -139,8 +138,8 @@ class HomeController extends Controller
         $chaves = Chave::buscarChavesDetalhes($id, $sexo, $peso, $faixa);
         $contadorChaves = Chave::contadorChaves($campeonato, $sexo, $peso, $faixa);
         $fases = PainelTorneioController::contarFases($chaves);
-
-        return view('painel.chave_detalhes', compact('campeonato', 'chaves', 'fases', 'contadorChaves'));    
         
+
+        return view('chaves_detalhes', compact('campeonato', 'chaves', 'fases', 'contadorChaves'));
     }
 }
