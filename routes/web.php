@@ -87,6 +87,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/painel-chaves/{id}/{sexo}/{peso}/{faixa}', [PainelTorneioController::class, 'chavesDetalhes'])->name('painel-chaves.detalhes');
 
     Route::get('/resultados/{id}', [PainelTorneioController::class, 'resultados'])->name('painel-resultados');
+    
+    Route::post('/salvar-chaves', [PainelTorneioController::class, 'salvarChaves'])->name('painel-salvarChaves');
 
 });
 

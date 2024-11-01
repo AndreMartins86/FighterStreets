@@ -322,6 +322,13 @@ class PainelTorneioController extends Controller
 
         return $fases;
     }
+
+    public function salvarChaves(Request $req)
+    {
+        dd($req);
+
+
+    }
     
    
 }

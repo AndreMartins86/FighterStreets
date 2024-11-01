@@ -43,8 +43,10 @@
 </div>
 
 <div class="container-fluid mt-3 mb-3">
+    <form action="{{ route('painel-salvarChaves') }}" method="POST">
+        @csrf
     <div class="row align-items-center">
-        <!--This is a comment. Comments are not displayed in the browser-->
+        
         @php
             $cont = 0;                 
             $aux = 0;     
@@ -62,8 +64,17 @@
             
             <p class="disputa mt-3">Luta: {{ $chaves[$j]->numeroLuta }}</p>
             <ul class="list-group">
-                <li class="list-group-item">{{ $chaves[$j]->nomeLutador1 }}<span>{{ $chaves[$j]->equipeLutador1 }}</span></li>
-                <li class="list-group-item">{{ $chaves[$j]->nomeLutador2 }}<span>{{ $chaves[$j]->equipeLutador2 }}</span></li>
+                <li class="list-group-item">{{ $chaves[$j]->nomeLutador1 }}<span>{{ $chaves[$j]->equipeLutador1 }}</span>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="L{{$chaves[$j]->numeroLuta}}" value="{{ $chaves[$j]->lutador_1 }}">
+                    </div>
+                </li>
+                
+                <li class="list-group-item">{{ $chaves[$j]->nomeLutador2 }}<span>{{ $chaves[$j]->equipeLutador2 }}</span>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="L{{$chaves[$j]->numeroLuta}}" value="{{ $chaves[$j]->lutador_2 }}">
+                    </div>
+                </li>
             </ul>
 
             @php
@@ -82,10 +93,14 @@
             @endphp
         
         </div>
-            
+
         @endwhile
 
+        
+        
     </div>
+    <button type="submit" class="btn btn-primary my-3">Salvar</button>
+</form>
 </div>
 
 @include('layout.footerhome')
