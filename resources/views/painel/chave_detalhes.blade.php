@@ -45,6 +45,10 @@
 <div class="container-fluid mt-3 mb-3">
     <form action="{{ route('painel-salvarChaves') }}" method="POST">
         @csrf
+        <input type="hidden" name="cID" value="{{ $campeonato->id }}">
+        <input type="hidden" name="fID" value="{{ $chaves[0]->faixa_id }}">
+        <input type="hidden" name="pID" value="{{ $chaves[0]->peso_id }}">
+        <input type="hidden" name="sID" value="{{ $chaves[0]->sexo_id }}">
     <div class="row align-items-center">
         
         @php
@@ -66,13 +70,23 @@
             <ul class="list-group">
                 <li class="list-group-item">{{ $chaves[$j]->nomeLutador1 }}<span>{{ $chaves[$j]->equipeLutador1 }}</span>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="L{{$chaves[$j]->numeroLuta}}" value="{{ $chaves[$j]->lutador_1 }}">
+                        <input class="form-check-input" type="radio" name="{{$chaves[$j]->numeroLuta}}" value="{{ $chaves[$j]->lutador_1 }}" style=" border-color: black;"
+                        @php
+                            $check = ($chaves[$j]->lutador_1 == $chaves[$j]->vencedor && $chaves[$j]->lutador_1 != NULL ) ? 'checked' : '';
+                            echo $check;
+                        @endphp                        
+                        >
                     </div>
                 </li>
                 
                 <li class="list-group-item">{{ $chaves[$j]->nomeLutador2 }}<span>{{ $chaves[$j]->equipeLutador2 }}</span>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="L{{$chaves[$j]->numeroLuta}}" value="{{ $chaves[$j]->lutador_2 }}">
+                        <input class="form-check-input" type="radio" name="{{$chaves[$j]->numeroLuta}}" value="{{ $chaves[$j]->lutador_2 }}" style=" border-color: black;"
+                        @php
+                            $check = ($chaves[$j]->lutador_2 == $chaves[$j]->vencedor && $chaves[$j]->lutador_2 != NULL) ? 'checked' : '';
+                            echo $check;
+                        @endphp   
+                        >
                     </div>
                 </li>
             </ul>

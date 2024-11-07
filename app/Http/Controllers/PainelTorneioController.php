@@ -307,7 +307,7 @@ class PainelTorneioController extends Controller
         return view('painel.chave_detalhes', compact('campeonato', 'chaves', 'fases', 'contadorChaves'));
     }
 
-    public static function contarFases(Collection $chaves): int
+    private static function contarFases(Collection $chaves): int
     {
         $total = count($chaves);
         $fases = 1;
@@ -323,10 +323,36 @@ class PainelTorneioController extends Controller
         return $fases;
     }
 
-    public function salvarChaves(Request $req)
+    public function salvarChaves(Request $req): View
     {
-        dd($req);
+        //dd($req);
+        $chaves =  Chave::where('campeonato_id', $req->cID)
+        ->where("sexo_id", $req->sID)
+        ->where("faixa_id", $req->fID)
+        ->where("peso_id", $req->pID)
+        ->get();
 
+        //dd($chaves);
+
+        $reqVet = $req->toArray();
+        $numLutasVet = [];
+        //$i = -1;
+
+        foreach ($reqVet as $key => $value) {
+            if (is_numeric($key)) {
+                $numLutasVet += [$key => $value];
+            }
+        }        
+
+        foreach ($numLutasVet as $key => $value) {
+            //$i++;
+            $chave = $chaves->where('numeroLuta', $key);
+            $chave[0]->vencedor = $value;
+            //dd($chave);
+            $chave[0]->save();
+        }
+
+        return view('painel.chave_detalhes', compact('campeonato', 'chaves', 'fases', 'contadorChaves'));
 
     }
     
