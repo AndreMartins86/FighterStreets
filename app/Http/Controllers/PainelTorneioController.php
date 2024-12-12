@@ -33,8 +33,7 @@ class PainelTorneioController extends Controller
             'password' => ['required']
         ]);
 
-        if (Auth::attempt($credenciais)) 
-        {
+        if (Auth::attempt($credenciais)) {
             $req->session()->regenerate();
 
             return redirect()->intended('/painel-torneios');
@@ -42,7 +41,7 @@ class PainelTorneioController extends Controller
 
         return back()->withErrors([
             'email' => 'Email inválido'
-        ])->onlyInput('email');        
+        ])->onlyInput('email');
     }
 
     public function painelLogout(Request $req): RedirectResponse
@@ -64,8 +63,8 @@ class PainelTorneioController extends Controller
         //INNER JOIN destaques on campeonatos.id = destaques.campeonato_id
         //INNER JOIN estados on campeonatos.estado_id = estados.id;
         $campeonatos = Campeonato::where('status', 1)
-        ->orderBy('data')
-        ->paginate(10);        
+            ->orderBy('data')
+            ->paginate(10);
 
         if (DB::table('destaques')->count() < 1) {
             $destaques = false;
@@ -93,19 +92,18 @@ class PainelTorneioController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $req): JsonResponse
-    {        
+    {
         $validador = Validator::make($req->all(), $this->regras());
-        
+
         if ($validador->fails()) {
 
-          return response()->json(['errors' => $validador->errors()]);
-
+            return response()->json(['errors' => $validador->errors()]);
         }
-        
-        $campeonatoDados = $validador->safe()->except(['extension']);        
+
+        $campeonatoDados = $validador->safe()->except(['extension']);
 
         $campeonato = new Campeonato();
-        $campeonato->fill($campeonatoDados);        
+        $campeonato->fill($campeonatoDados);
         $imagem_partes = explode(";base64,", $req->arquivo);
         $imagem_base64 = base64_decode($imagem_partes[1]);
         $nomeImagem = uniqid() . '.png';
@@ -124,7 +122,7 @@ class PainelTorneioController extends Controller
 
         session()->flash('msg', 'Campeonato Cadastrado');
 
-        return response()->json(['success'=>'Cadastrado', 'link' => route('painel-torneios.index')]);
+        return response()->json(['success' => 'Cadastrado', 'link' => route('painel-torneios.index')]);
     }
 
     /**
@@ -144,10 +142,10 @@ class PainelTorneioController extends Controller
     {
         $estados = DB::table('estados')->get();
         $tipos = DB::table('tipos')->get();
-        
+
         $camp = Campeonato::find($id);
 
-        return view('painel.editar_torneio', compact('camp', 'estados','tipos'));
+        return view('painel.editar_torneio', compact('camp', 'estados', 'tipos'));
     }
 
     /**
@@ -156,26 +154,25 @@ class PainelTorneioController extends Controller
     public function update(Request $req, String $id): JsonResponse
     {
         //dd($req->titulo);
-        $validador = Validator::make($req->all(), $this->regras());       
-        
+        $validador = Validator::make($req->all(), $this->regras());
+
         if ($validador->fails()) {
 
-          return response()->json(['errors' => $validador->errors()]);
-
+            return response()->json(['errors' => $validador->errors()]);
         }
-        
-        $campeonatoDados = $validador->safe()->except(['extension']);        
+
+        $campeonatoDados = $validador->safe()->except(['extension']);
 
         $campeonato = Campeonato::find($id);
 
         $deletarArq = substr($campeonato->imagem, 9);
         Storage::disk('public')->delete($deletarArq);
 
-        $campeonato->fill($campeonatoDados);        
+        $campeonato->fill($campeonatoDados);
         $imagem_partes = explode(";base64,", $req->arquivo);
         $imagem_base64 = base64_decode($imagem_partes[1]);
         $nomeImagem = uniqid() . '.png';
-        $caminhoImagem = '/uploads/' . $nomeImagem;       
+        $caminhoImagem = '/uploads/' . $nomeImagem;
 
         //Storage::put($nomeImagem, $imagem_base64);        
         Storage::disk('public')->put($nomeImagem, $imagem_base64);
@@ -190,7 +187,7 @@ class PainelTorneioController extends Controller
 
         session()->flash('msg', 'Campeonato Atualizado');
 
-        return response()->json(['success'=>'Atualizado', 'link' => route('painel-torneios.index')]);
+        return response()->json(['success' => 'Atualizado', 'link' => route('painel-torneios.index')]);
     }
 
     /**
@@ -202,12 +199,11 @@ class PainelTorneioController extends Controller
 
         $deletarArq = substr($campeonato->imagem, 9);
         Storage::disk('public')->delete($deletarArq);
-        
+
         $campeonato->delete();
         session()->flash('msg', 'Campeonato Deletado');
 
         return redirect()->route('painel-torneios.index');
-
     }
 
     public function filtrarTorneio(Request $req): View
@@ -216,10 +212,10 @@ class PainelTorneioController extends Controller
         $inicial = $req->de == null ? '1996-01-01' : $req->de;
         $final = $req->ate == null ? now() : $req->ate;
 
-        $campeonatos = Campeonato::where('titulo', 'LIKE', '%'.$req->titulo.'%')        
-        ->where('status', $status)
-        ->whereBetween('created_at', [$inicial, $final])
-        ->paginate();
+        $campeonatos = Campeonato::where('titulo', 'LIKE', '%' . $req->titulo . '%')
+            ->where('status', $status)
+            ->whereBetween('created_at', [$inicial, $final])
+            ->paginate();
 
         if (DB::table('destaques')->count() < 1) {
             $destaques = false;
@@ -235,24 +231,24 @@ class PainelTorneioController extends Controller
     public function salvarDestaques(Request $req): JsonResponse
     {
         $tam = count($req->all());
-        $vetor = array_values($req->all());  
+        $vetor = array_values($req->all());
 
         DB::table('destaques')->truncate();
 
-        for ($i=0;$i<$tam; $i++) {
+        for ($i = 0; $i < $tam; $i++) {
             $pos = $i + 1;
             DB::table('destaques')->insert([
                 'posicao' => $pos,
                 'campeonato_id' => intval($vetor[$i]),
                 'created_at' => now(),
                 'updated_at' => now()
-            ]);            
+            ]);
         }
 
-        return response()->json(['success'=>'Destaque salvo']);
+        return response()->json(['success' => 'Destaque salvo']);
     }
 
-    private function regras(): Array
+    private function regras(): array
     {
         return [
             'titulo' => 'required|min:3|max:100',
@@ -263,17 +259,17 @@ class PainelTorneioController extends Controller
             'ginasio' => 'required|min:3|max:150',
             'sobre' => 'required|min:3|max:150',
             'informacoes' => 'required|min:3|max:150',
-            'estado_id' => 'required|integer|numeric'   
-        ];        
+            'estado_id' => 'required|integer|numeric'
+        ];
     }
 
     private function destaques(): Collection
     {
         //$destaques = DB::table('campeonatos')
-        $destaques = Campeonato::join('destaques','campeonatos.id', '=', 'destaques.campeonato_id')
-        ->join('estados','campeonatos.estado_id', '=', 'estados.id')        
-        ->selectRaw('destaques.posicao, campeonatos.id, titulo, DATE_FORMAT(campeonatos.data, "%d/%m/%Y") as "data", cidade, estados.sigla')
-        ->get();
+        $destaques = Campeonato::join('destaques', 'campeonatos.id', '=', 'destaques.campeonato_id')
+            ->join('estados', 'campeonatos.estado_id', '=', 'estados.id')
+            ->selectRaw('destaques.posicao, campeonatos.id, titulo, DATE_FORMAT(campeonatos.data, "%d/%m/%Y") as "data", cidade, estados.sigla')
+            ->get();
 
         return $destaques;
     }
@@ -285,7 +281,7 @@ class PainelTorneioController extends Controller
 
         $campeonato = Campeonato::find($id);
 
-        session()->flash('msg', 'Chaves criadas');        
+        session()->flash('msg', 'Chaves criadas');
 
         return view('painel.chave_listagem', compact('campeonato'));
     }
@@ -298,11 +294,12 @@ class PainelTorneioController extends Controller
     }
 
     public function chavesDetalhes($id, $sexo, $peso, $faixa): View
-    {        
-        $campeonato = Campeonato::find($id);                
+    {
+        $campeonato = Campeonato::find($id);
         $chaves = Chave::buscarChavesDetalhes($id, $sexo, $peso, $faixa);
         $contadorChaves = Chave::contadorChaves($campeonato, $sexo, $peso, $faixa);
-        $fases = $this->contarFases($chaves);        
+        $fases = $this->contarFases($chaves);
+        //dd($chaves);
 
         return view('painel.chave_detalhes', compact('campeonato', 'chaves', 'fases', 'contadorChaves'));
     }
@@ -312,49 +309,33 @@ class PainelTorneioController extends Controller
         $total = count($chaves);
         $fases = 1;
 
-        do
-        {
+        do {
 
-        $total = $total / 2;
-        $fases++;
-
-        } while($total > 2);
+            $total = $total / 2;
+            $fases++;
+        } while ($total > 2);
 
         return $fases;
     }
 
-    public function salvarChaves(Request $req): View
+    public function salvarChaves(Request $req)
     {
-        //dd($req);
-        $chaves =  Chave::where('campeonato_id', $req->cID)
-        ->where("sexo_id", $req->sID)
-        ->where("faixa_id", $req->fID)
-        ->where("peso_id", $req->pID)
-        ->get();
+        // http://127.0.0.1:8000/painel-chaves/6/feminino/leve/marrom
+        //sexo, $peso, $faixa): array
+        
+        //dd($req->cID);
+        $IDs = Chave::getValores($req->sID, $req->pID, $req->fID);
+        Chave::salvandoChaves($req);
 
-        //dd($chaves);
-
-        $reqVet = $req->toArray();
-        $numLutasVet = [];
-        //$i = -1;
-
-        foreach ($reqVet as $key => $value) {
-            if (is_numeric($key)) {
-                $numLutasVet += [$key => $value];
-            }
-        }        
-
-        foreach ($numLutasVet as $key => $value) {
-            //$i++;
-            $chave = $chaves->where('numeroLuta', $key);
-            $chave[0]->vencedor = $value;
-            //dd($chave);
-            $chave[0]->save();
-        }
-
-        return view('painel.chave_detalhes', compact('campeonato', 'chaves', 'fases', 'contadorChaves'));
-
+        //dd($IDs);
+        return redirect()->route(
+            'painel-chaves.detalhes',
+            [
+                'id' => $req->cID,
+                'sexo' => $IDs[0],
+                'peso' =>  $IDs[1],
+                'faixa' => $IDs[2]
+            ]
+        );
     }
-    
-   
 }

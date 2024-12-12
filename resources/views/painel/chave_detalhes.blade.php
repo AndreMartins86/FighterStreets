@@ -46,9 +46,11 @@
     <form action="{{ route('painel-salvarChaves') }}" method="POST">
         @csrf
         <input type="hidden" name="cID" value="{{ $campeonato->id }}">
-        <input type="hidden" name="fID" value="{{ $chaves[0]->faixa_id }}">
-        <input type="hidden" name="pID" value="{{ $chaves[0]->peso_id }}">
         <input type="hidden" name="sID" value="{{ $chaves[0]->sexo_id }}">
+        <input type="hidden" name="pID" value="{{ $chaves[0]->peso_id }}">
+        <input type="hidden" name="fID" value="{{ $chaves[0]->faixa_id }}">
+        
+        
     <div class="row align-items-center">
         
         @php

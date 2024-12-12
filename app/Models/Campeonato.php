@@ -73,6 +73,11 @@ class Campeonato extends Model
         
     }
 
+    public function getSexo()
+    {
+        return DB::table('sexos')->where('id', $this->sexo_id)->value('sexo');
+    }
+
     public function friendUrl()
     {
         return str_replace(' ', '-', $this->titulo);
