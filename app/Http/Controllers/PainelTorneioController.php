@@ -298,7 +298,7 @@ class PainelTorneioController extends Controller
         $campeonato = Campeonato::find($id);
         $chaves = Chave::buscarChavesDetalhes($id, $sexo, $peso, $faixa);
         $contadorChaves = Chave::contadorChaves($campeonato, $sexo, $peso, $faixa);
-        $fases = $this->contarFases($chaves);
+        $fases = $this->contarFases($chaves);   
         //dd($chaves);
 
         return view('painel.chave_detalhes', compact('campeonato', 'chaves', 'fases', 'contadorChaves'));
@@ -322,10 +322,25 @@ class PainelTorneioController extends Controller
     {
         // http://127.0.0.1:8000/painel-chaves/6/feminino/leve/marrom
         //sexo, $peso, $faixa): array
+
+        /*
+UPDATE chaves
+SET vencedor = NULL
+WHERE campeonato_id = 6;
+
+UPDATE chaves
+SET vencedor = NULL, lutador_1 = NULL, lutador_2 = NULL
+WHERE campeonato_id = 6 AND numeroLuta > 8;
+
+SELECT * FROM `chaves`
+WHERE campeonato_id = 6 AND sexo_id = 1 AND faixa_id = 1 AND peso_id = 1;
+        */
         
         //dd($req->cID);
+        //dd($req);
         $IDs = Chave::getValores($req->sID, $req->pID, $req->fID);
         Chave::salvandoChaves($req);
+        Chave::avancarChaves($req);
 
         //dd($IDs);
         return redirect()->route(

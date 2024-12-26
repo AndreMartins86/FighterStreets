@@ -191,14 +191,14 @@ class Chave extends Model
     $IDs = self::getIDs($sexo, $peso, $faixa);
 
     return Chave::fromQuery(
-      "SELECT numeroLuta, lutador_1, lut1.nome AS 'nomeLutador1', lut1.equipe AS 'equipeLutador1', lutador_2, lut2.nome AS 'nomeLutador2', lut2.equipe AS 'equipeLutador2', vencedor, chaves.sexo_id, chaves.peso_id, chaves.faixa_id FROM chaves
-        INNER JOIN atletas AS lut1 ON chaves.lutador_1 = lut1.id 
-        INNER JOIN atletas AS lut2 ON chaves.lutador_2 = lut2.id
-        WHERE campeonato_id = ? AND chaves.sexo_id = ? AND chaves.peso_id = ? AND chaves.faixa_id = ?
-        UNION SELECT numeroLuta, lutador_1, IFNULL(lutador_1, 'Aguardando...'), IFNULL(lutador_1, 'Aguardando...') AS 'equipeLutador1', lutador_2, IFNULL(lutador_2, 'Aguardando...'), IFNULL(lutador_2, 'Aguardando...') AS 'equipeLutador2', vencedor, chaves.sexo_id, chaves.peso_id, chaves.faixa_id FROM chaves
-        WHERE chaves.sexo_id = ? AND chaves.peso_id = ? AND chaves.faixa_id = ? AND (lutador_1 IS NULL OR lutador_2 IS NULL)
-        ORDER BY numeroLuta;",
-      [$id, $IDs[0], $IDs[1], $IDs[2], $IDs[0], $IDs[1], $IDs[2]]
+      "SELECT C.numeroLuta, C.lutador_1, IFNULL(L1.nome, 'Aguardando...') AS 'nomeLutador1',
+       IFNULL(L1.equipe, 'Aguardando...') AS 'equipeLutador1', C.lutador_2, IFNULL(L2.nome, 'Aguardando...') AS 'nomeLutador2',
+       IFNULL(L2.equipe, 'Aguardando...') AS 'equipeLutador2', C.vencedor, C.sexo_id, C.peso_id, C.faixa_id FROM chaves C
+       LEFT JOIN atletas L1 on C.lutador_1 = L1.id
+       LEFT JOIN atletas L2 on C.lutador_2 = L2.id
+       WHERE C.campeonato_id = ? AND C.sexo_id = ? AND C.faixa_id = ? AND C.peso_id = ?
+       ORDER BY numeroLuta;",
+      [$id, $IDs[0], $IDs[1], $IDs[2]]
     );
   }
 
@@ -283,7 +283,7 @@ class Chave extends Model
     $chavesTam = count($chaves);
     $vetLutasTam = count($numLutasVet);
 
-
+    //percorre as chaves e salva se o resultado estiver no vetor de lutas
     for ($j = 0; $j < $vetLutasTam; $j++) {
       for ($i = 0; $i < $chavesTam; $i++) {
 
@@ -293,6 +293,33 @@ class Chave extends Model
         }
       }
     }
+  }
+
+  protected function avancarChaves(Request $req)
+  {
+    $chaves = Chave::where('campeonato_id', $req->cID)
+    ->where('sexo_id', $req->sID)
+    ->where('peso_id', $req->pID)
+    ->where('faixa_id', $req->fID)
+    ->get();
+
+    $qtdeDisputasInicial =  $chaves->count() / 2;
+    $totalDisputas = $chaves->count();
+    //dd($chaves);
+    //$salvarPosicoes = [];
+    $pos1 = 0;
+    $pos2 = 1;
+
+    for ($i=$qtdeDisputasInicial; $i < $totalDisputas ; $i++) {      
+      $chaves[$i]->lutador_1 = $chaves[$pos1]->vencedor;
+      $chaves[$i]->lutador_2 = $chaves[$pos2]->vencedor;
+      $chaves[$i]->save();
+      $pos1 += 2;
+      $pos2 = $pos1 + 1;
+
+    }
+
+
   }
 
 }
