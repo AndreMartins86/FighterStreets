@@ -310,7 +310,8 @@ class Chave extends Model
     $pos1 = 0;
     $pos2 = 1;
 
-    for ($i=$qtdeDisputasInicial; $i < $totalDisputas ; $i++) {      
+    for ($i=$qtdeDisputasInicial; $i < $totalDisputas ; $i++) {
+
       $chaves[$i]->lutador_1 = $chaves[$pos1]->vencedor;
       $chaves[$i]->lutador_2 = $chaves[$pos2]->vencedor;
       $chaves[$i]->save();
@@ -318,6 +319,28 @@ class Chave extends Model
       $pos2 = $pos1 + 1;
 
     }
+
+    //dd($totalDisputas - 2);//14
+
+    if ($chaves[($totalDisputas - 3)]->vencedor != NULL && $chaves[($totalDisputas - 4)]->vencedor != NULL) {
+      if ($chaves[($totalDisputas - 4)]->lutador_1 == $chaves[($totalDisputas - 4)]->vencedor ) {
+        $chaves[($totalDisputas - 1)]->lutador_1 = $chaves[($totalDisputas - 4)]->lutador_2;
+        $chaves[($totalDisputas - 1)]->save();
+      } else {
+        $chaves[($totalDisputas - 1)]->lutador_1 = $chaves[($totalDisputas - 4)]->lutador_1;
+        $chaves[($totalDisputas - 1)]->save();
+      }
+
+      if ($chaves[($totalDisputas - 3)]->lutador_1 == $chaves[($totalDisputas - 3)]->vencedor ) {
+        $chaves[($totalDisputas - 1)]->lutador_2 = $chaves[($totalDisputas - 3)]->lutador_2;
+        $chaves[($totalDisputas - 1)]->save();
+      } else {
+        $chaves[($totalDisputas - 1)]->lutador_2 = $chaves[($totalDisputas - 3)]->lutador_1;
+        $chaves[($totalDisputas - 1)]->save();
+      }
+    }
+
+
 
 
   }

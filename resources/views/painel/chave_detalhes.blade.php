@@ -57,6 +57,8 @@
             $cont = 0;                 
             $aux = 0;     
             $j = -1;
+            $fases = count($contadorChaves);
+            $totalLutas = count($chaves);
             
         @endphp
 
@@ -67,8 +69,14 @@
             @php
                 $j++;
             @endphp
-            
+
+            @if (($totalLutas - 2) == $j)
+            <p class="disputa mt-3">Luta: Final</p>
+            @elseif(($totalLutas - 1) == $j)
+            <p class="disputa mt-3">Luta: 3º lugar</p>
+            @else
             <p class="disputa mt-3">Luta: {{ $chaves[$j]->numeroLuta }}</p>
+            @endif
             <ul class="list-group">
                 <li class="list-group-item">{{ $chaves[$j]->nomeLutador1 }}<span>{{ $chaves[$j]->equipeLutador1 }}</span>
                     <div class="form-check">
