@@ -119,13 +119,22 @@
         </div>
 
         @endwhile
-
-        
         
     </div>
     <button type="submit" class="btn btn-primary my-3">Salvar</button>
 </form>
 </div>
 
+<div class="container mt-3 mb-3">
+    <div class="row">
+        <div class="col-12 text-center">
+            <button type="submit" class="btn btn-primary my-3" id="enc" disabled>Encerrar Torneio</button>
+        </div>
+    </div>
+</div>
+
+@push('encT')
+<script src="/js/encT.js"></script>
+@endpush
 @include('layout.footerhome')
 @endsection
