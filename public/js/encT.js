@@ -8,9 +8,12 @@ for (let i = tam - 1; i > tam - 5; i--) {
 }
 
 function ativarBtn() {
-    const encBtn = document.getElementById('enc');
+    
+    const encBtn = document.getElementById('encBtn');
+    const encLink = document.getElementById('encLink');
 
     if ((form[tam - 1].checked || form[tam - 2].checked) && (form[tam - 3].checked || form[tam - 4].checked)) {
         encBtn.disabled = false;
+        encLink.disabled = false;
     }
 }

@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-//use App\Http\Requests\TorneioRequest;
 use App\Models\Campeonato;
 use App\Models\Chave;
+use App\Models\Resultado;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-//use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -352,5 +351,20 @@ WHERE campeonato_id = 6 AND sexo_id = 1 AND faixa_id = 1 AND peso_id = 1;
                 'faixa' => $IDs[2]
             ]
         );
+    }
+
+    public function finalizarTorneio($id, $sexo, $peso, $faixa): RedirectResponse
+    {
+        Resultado::finalizar($id, $sexo, $peso, $faixa);
+
+        session()->flash('msg', 'Torneio Finalizado');
+
+        return redirect()->route('painel-torneios.show', $id);
+    }
+
+    public function resultados($id): View
+    {
+        return view('painel.resultados');
+
     }
 }

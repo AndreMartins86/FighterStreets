@@ -90,5 +90,7 @@ Route::middleware('auth')->group(function () {
     
     Route::post('/salvar-chaves', [PainelTorneioController::class, 'salvarChaves'])->name('painel-salvarChaves');
 
+    Route::get('/encerrado/{id}/{sexo}/{peso}/{faixa}', [PainelTorneioController::class, 'finalizarTorneio'])->name('painel-finalizarTorneio');
+
 });
 

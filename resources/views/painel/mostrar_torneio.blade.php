@@ -1,10 +1,21 @@
 @extends('app')
 @section('conteudo')
-    @include('painel.layout.navpainel')
+@include('painel.layout.navpainel')
 
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            @if (session()->has('msg'))
+            <div class="alert alert-success">
+                <p>{{ session()->get('msg') }}</p>
+            </div>
+        @endif
+        </div>
+    </div>
+</div>
     <div class="container">
         <div class="row">
-            <div class="col-12">                    
+            <div class="col-12">
                 <img src="{{ $camp->imagem }}" class="img-fluid" alt="Banner">
             </div>
         </div>
