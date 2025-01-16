@@ -10,19 +10,19 @@
     </div>
             <div class="row">
                 <div class="col-3">
-                    <p class="text-center">#12345</p>
+                    <p class="text-center">#{{ $campeonato->id }}</p>
                 </div>
             
                 <div class="col-3">
-                    <p class="text-center">tipo</p>
+                    <p class="text-center">{{ $campeonato->getTipo() }}</p>
                 </div>
 
                 <div class="col-3">
-                    <p class="text-center">Santos-SP</p>
+                    <p class="text-center">{{ $campeonato->getLocal() }}</p>
                 </div>
 
                 <div class="col-3">
-                    <p class="text-center">21/11/2023</p>
+                    <p class="text-center">{{ $campeonato->getData() }}</p>
                 </div>
             </div>	
 </div>

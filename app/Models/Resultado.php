@@ -50,6 +50,20 @@ class Resultado extends Model
         $camp->save();
     }
 
+    protected static function listarNomesAtletas($id)
+    {
+        return Resultado::fromQuery(
+            "SELECT res.campeonato_id, res.sexo_id, res.faixa_id, res.peso_id, p.nome AS 'primeiroColocado',
+            s.nome AS 'segundoColocado', t.nome AS 'terceiroColocado', p.equipe AS 'equipePrimeiroColocado',
+            s.equipe AS 'equipeSegundoColocado', t.equipe AS 'equipeTerceiroColocado' FROM `resultados` AS res
+            LEFT JOIN `atletas` AS p ON res.primeiroColocado = p.id
+            LEFT JOIN `atletas` AS s ON res.segundoColocado = s.id
+            LEFT JOIN `atletas` AS t ON res.terceiroColocado = t.id 
+            WHERE campeonato_id = ?;",
+            [$id]
+        );
+    }
+
 
 
 }

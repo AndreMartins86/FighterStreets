@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
-
+use LDAP\Result;
 
 class PainelTorneioController extends Controller
 {
@@ -364,7 +364,10 @@ WHERE campeonato_id = 6 AND sexo_id = 1 AND faixa_id = 1 AND peso_id = 1;
 
     public function resultados($id): View
     {
-        return view('painel.resultados');
+        $resultados = Resultado::listarNomesAtletas($id);        
+        $campeonato = Campeonato::find($id);
+
+        return view('painel.resultados', compact('resultados', 'campeonato'));
 
     }
 }
