@@ -320,6 +320,7 @@ class PainelTorneioController extends Controller
     public function salvarChaves(Request $req)
     {
         // http://127.0.0.1:8000/painel-chaves/6/feminino/leve/marrom
+        // http://127.0.0.1:8000/painel-torneios
         //sexo, $peso, $faixa): array
 
         /*

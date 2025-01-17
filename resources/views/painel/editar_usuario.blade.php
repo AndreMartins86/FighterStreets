@@ -13,8 +13,8 @@
             <br>
             <div class="collapse" id="collapseUsuarios">
                 <div class="card card-body">
-                    <a href="">Cadastrar</a>
-                    <a href="">Listagem</a>
+                    <a href="{{ route('painel-usuarios.create') }}">Cadastrar</a>
+                    <a href="{{ route('painel-usuarios.index') }}">Listagem</a>
                 </div>
             </div>
             <div class="mb-1">
@@ -26,8 +26,8 @@
             <br>
             <div class="collapse" id="collapseTorneios">
                 <div class="card card-body">
-                    <a href="">Cadastrar</a>
-                    <a href="">Listagem</a>
+                    <a href="{{ route('painel-torneios.create') }}">Cadastrar</a>
+                    <a href="{{ route('painel-torneios.index') }}">Listagem</a>
                 </div>
             </div>
             <a href="#">Sair</a>
