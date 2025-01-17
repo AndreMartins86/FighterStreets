@@ -45,9 +45,11 @@ class Resultado extends Model
 
         $resultado->save();
 
-        $camp = Campeonato::find($id);
-        $camp->fase_id = 3;
-        $camp->save();
+        if (Resultado::where('campeonato_id', $id)->count() > 7) {
+            $camp = Campeonato::find($id);
+            $camp->fase_id = 3;
+            $camp->save();            
+        }       
     }
 
     protected static function listarNomesAtletas($id)

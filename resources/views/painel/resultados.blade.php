@@ -10,7 +10,7 @@
     </div>
             <div class="row">
                 <div class="col-3">
-                    <p class="text-center">#{{ $campeonato->id }}</p>
+                    <p class="text-center"># {{ $campeonato->id }}</p>
                 </div>
             
                 <div class="col-3">
@@ -46,18 +46,41 @@
         <div class="col-6">            
             <h5>Masculino</h5>
             <ul class="list-group">
-                <li class="list-group-item"><span class="badge bg-primary">1</span>Mateus Marinho<span style="display: block">Equipe Cobra Kai</span></li>
-                <li class="list-group-item"><span class="badge bg-primary">2</span>Vinicius Medeiros<span style="display: block">Equipe Cobra Kai</span></li>
-                <li class="list-group-item"><span class="badge bg-primary">3</span>João Veiga<span style="display: block">Equipe Cobra Kai</span></li>
+                @foreach ($resultados as $res)
+
+                @if ($res->sexo_id == 2 && $res->peso_id == 1 && $res->faixa_id == 1)
+                <li class="list-group-item"><span class="badge bg-primary">1</span>{{ $res->primeiroColocado }}<span style="display: block">{{ $res->equipePrimeiroColocado }}</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">2</span>{{ $res->segundoColocado }}<span style="display: block">{{ $res->equipeSegundoColocado }}</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">3</span>{{ $res->terceiroColocado }}<span style="display: block">{{ $res->equipeTerceiroColocado }}</span></li>
+                @else
+                <li class="list-group-item"><span class="badge bg-primary">1</span>Aguardando...<span style="display: block">.</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">2</span>Aguardando...<span style="display: block">.</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">3</span>Aguardando...<span style="display: block">.</span></li>
+
+                @endif
+
+                @endforeach
+               
             </ul>
         </div>
         <div class="col-6">
             
             <h5>Feminino</h5>
             <ul class="list-group">
-                <li class="list-group-item"><span class="badge bg-primary">1</span>Joyce Ribeiro<span style="display: block">Equipe Cobra Kai</span></li>
-                <li class="list-group-item"><span class="badge bg-primary">2</span>Victoria Daolio<span style="display: block">Equipe Cobra Kai</span></li>
-                <li class="list-group-item"><span class="badge bg-primary">3</span>Luize Gama<span style="display: block">Equipe Cobra Kai</span></li>
+                @foreach ($resultados as $res)
+
+                @if ($res->sexo_id == 1 && $res->peso_id == 1 && $res->faixa_id == 1)
+                <li class="list-group-item"><span class="badge bg-primary">1</span>{{ $res->primeiroColocado }}<span style="display: block">{{ $res->equipePrimeiroColocado }}</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">2</span>{{ $res->segundoColocado }}<span style="display: block">{{ $res->equipeSegundoColocado }}</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">3</span>{{ $res->terceiroColocado }}<span style="display: block">{{ $res->equipeTerceiroColocado }}</span></li>
+                @else
+                <li class="list-group-item"><span class="badge bg-primary">1</span>Aguardando...<span style="display: block">.</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">2</span>Aguardando...<span style="display: block">.</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">3</span>Aguardando...<span style="display: block">.</span></li>
+
+                @endif
+
+                @endforeach
             </ul>            
         </div>
     </div>
@@ -68,18 +91,39 @@
         <div class="col-6">            
             <h5>Masculino</h5>
             <ul class="list-group">
-                <li class="list-group-item"><span class="badge bg-primary">1</span>Mateus Marinho<span style="display: block">Equipe Cobra Kai</span></li>
-                <li class="list-group-item"><span class="badge bg-primary">2</span>Vinicius Medeiros<span style="display: block">Equipe Cobra Kai</span></li>
-                <li class="list-group-item"><span class="badge bg-primary">3</span>João Veiga<span style="display: block">Equipe Cobra Kai</span></li>
+                @foreach ($resultados as $res)
+
+                @if ($res->sexo_id == 2 && $res->peso_id == 2 && $res->faixa_id == 1)
+                <li class="list-group-item"><span class="badge bg-primary">1</span>{{ $res->primeiroColocado }}<span style="display: block">{{ $res->equipePrimeiroColocado }}</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">2</span>{{ $res->segundoColocado }}<span style="display: block">{{ $res->equipeSegundoColocado }}</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">3</span>{{ $res->terceiroColocado }}<span style="display: block">{{ $res->equipeTerceiroColocado }}</span></li>
+                @else
+                <li class="list-group-item"><span class="badge bg-primary">1</span>Aguardando...<span style="display: block">.</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">2</span>Aguardando...<span style="display: block">.</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">3</span>Aguardando...<span style="display: block">.</span></li>
+                
+                @endif
+
+                @endforeach
             </ul>
         </div>
         <div class="col-6">            
             <h5>Feminino</h5>
             <ul class="list-group">
-                <li class="list-group-item"><span class="badge bg-primary">1</span>Joyce Ribeiro<span style="display: block">Equipe Cobra Kai</span></li>
-                <li class="list-group-item"><span class="badge bg-primary">2</span>Victoria Daolio<span style="display: block">Equipe Cobra Kai</span></li>
-                <li class="list-group-item"><span class="badge bg-primary">3</span>Luize Gama<span style="display: block">Equipe Cobra Kai</span></li>
-            </ul>            
+                @foreach ($resultados as $res)
+
+                @if ($res->sexo_id == 1 && $res->peso_id == 2 && $res->faixa_id == 1)
+                <li class="list-group-item"><span class="badge bg-primary">1</span>{{ $res->primeiroColocado }}<span style="display: block">{{ $res->equipePrimeiroColocado }}</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">2</span>{{ $res->segundoColocado }}<span style="display: block">{{ $res->equipeSegundoColocado }}</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">3</span>{{ $res->terceiroColocado }}<span style="display: block">{{ $res->equipeTerceiroColocado }}</span></li>
+                @else
+                <li class="list-group-item"><span class="badge bg-primary">1</span>Aguardando...<span style="display: block">.</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">2</span>Aguardando...<span style="display: block">.</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">3</span>Aguardando...<span style="display: block">.</span></li>
+                
+                @endif
+
+                @endforeach
         </div>
     </div>
     {{-- ----------------------------------------------------------------------------------------------------------------- --}}
@@ -96,17 +140,41 @@
         <div class="col-6">            
             <h5>Masculino</h5>
             <ul class="list-group">
-                <li class="list-group-item"><span class="badge bg-primary">1</span>Mateus Marinho<span style="display: block">Equipe Cobra Kai</span></li>
-                <li class="list-group-item"><span class="badge bg-primary">2</span>Vinicius Medeiros<span style="display: block">Equipe Cobra Kai</span></li>
-                <li class="list-group-item"><span class="badge bg-primary">3</span>João Veiga<span style="display: block">Equipe Cobra Kai</span></li>
+                @foreach ($resultados as $res)
+
+                @if ($res->sexo_id == 2 && $res->peso_id == 1 && $res->faixa_id == 2)
+                <li class="list-group-item"><span class="badge bg-primary">1</span>{{ $res->primeiroColocado }}<span style="display: block">{{ $res->equipePrimeiroColocado }}</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">2</span>{{ $res->segundoColocado }}<span style="display: block">{{ $res->equipeSegundoColocado }}</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">3</span>{{ $res->terceiroColocado }}<span style="display: block">{{ $res->equipeTerceiroColocado }}</span></li>
+                @else
+                <li class="list-group-item"><span class="badge bg-primary">1</span>Aguardando...<span style="display: block">.</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">2</span>Aguardando...<span style="display: block">.</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">3</span>Aguardando...<span style="display: block">.</span></li>
+                
+                @endif
+
+                @endforeach
+                
             </ul>
         </div>
         <div class="col-6">            
             <h5>Feminino</h5>
             <ul class="list-group">
-                <li class="list-group-item"><span class="badge bg-primary">1</span>Joyce Ribeiro<span style="display: block">Equipe Cobra Kai</span></li>
-                <li class="list-group-item"><span class="badge bg-primary">2</span>Victoria Daolio<span style="display: block">Equipe Cobra Kai</span></li>
-                <li class="list-group-item"><span class="badge bg-primary">3</span>Luize Gama<span style="display: block">Equipe Cobra Kai</span></li>
+                @foreach ($resultados as $res)
+
+                @if ($res->sexo_id == 1 && $res->peso_id == 1 && $res->faixa_id == 2)
+                <li class="list-group-item"><span class="badge bg-primary">1</span>{{ $res->primeiroColocado }}<span style="display: block">{{ $res->equipePrimeiroColocado }}</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">2</span>{{ $res->segundoColocado }}<span style="display: block">{{ $res->equipeSegundoColocado }}</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">3</span>{{ $res->terceiroColocado }}<span style="display: block">{{ $res->equipeTerceiroColocado }}</span></li>
+                @else
+                <li class="list-group-item"><span class="badge bg-primary">1</span>Aguardando...<span style="display: block">.</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">2</span>Aguardando...<span style="display: block">.</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">3</span>Aguardando...<span style="display: block">.</span></li>
+                
+                @endif
+
+                @endforeach
+                
             </ul>            
         </div>
     </div>
@@ -117,17 +185,39 @@
         <div class="col-6">            
             <h5>Masculino</h5>
             <ul class="list-group">
-                <li class="list-group-item"><span class="badge bg-primary">1</span>Mateus Marinho<span style="display: block">Equipe Cobra Kai</span></li>
-                <li class="list-group-item"><span class="badge bg-primary">2</span>Vinicius Medeiros<span style="display: block">Equipe Cobra Kai</span></li>
-                <li class="list-group-item"><span class="badge bg-primary">3</span>João Veiga<span style="display: block">Equipe Cobra Kai</span></li>
+                @foreach ($resultados as $res)
+
+                @if ($res->sexo_id == 2 && $res->peso_id == 2 && $res->faixa_id == 2)
+                <li class="list-group-item"><span class="badge bg-primary">1</span>{{ $res->primeiroColocado }}<span style="display: block">{{ $res->equipePrimeiroColocado }}</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">2</span>{{ $res->segundoColocado }}<span style="display: block">{{ $res->equipeSegundoColocado }}</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">3</span>{{ $res->terceiroColocado }}<span style="display: block">{{ $res->equipeTerceiroColocado }}</span></li>
+                @else
+                <li class="list-group-item"><span class="badge bg-primary">1</span>Aguardando...<span style="display: block">.</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">2</span>Aguardando...<span style="display: block">.</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">3</span>Aguardando...<span style="display: block">.</span></li>
+                
+                @endif
+
+                @endforeach
             </ul>
         </div>
         <div class="col-6">            
             <h5>Feminino</h5>
             <ul class="list-group">
-                <li class="list-group-item"><span class="badge bg-primary">1</span>Joyce Ribeiro<span style="display: block">Equipe Cobra Kai</span></li>
-                <li class="list-group-item"><span class="badge bg-primary">2</span>Victoria Daolio<span style="display: block">Equipe Cobra Kai</span></li>
-                <li class="list-group-item"><span class="badge bg-primary">3</span>Luize Gama<span style="display: block">Equipe Cobra Kai</span></li>
+                @foreach ($resultados as $res)
+
+                @if ($res->sexo_id == 1 && $res->peso_id == 2 && $res->faixa_id == 2)
+                <li class="list-group-item"><span class="badge bg-primary">1</span>{{ $res->primeiroColocado }}<span style="display: block">{{ $res->equipePrimeiroColocado }}</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">2</span>{{ $res->segundoColocado }}<span style="display: block">{{ $res->equipeSegundoColocado }}</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">3</span>{{ $res->terceiroColocado }}<span style="display: block">{{ $res->equipeTerceiroColocado }}</span></li>
+                @else
+                <li class="list-group-item"><span class="badge bg-primary">1</span>Aguardando...<span style="display: block">.</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">2</span>Aguardando...<span style="display: block">.</span></li>
+                <li class="list-group-item"><span class="badge bg-primary">3</span>Aguardando...<span style="display: block">.</span></li>
+                
+                @endif
+
+                @endforeach
             </ul>            
         </div>
     </div>
