@@ -7,10 +7,10 @@
                     ©{{ date('Y') }} Fighter Streets. Todos os direitos reservados.
                 </div>
                 <div class="col-6 text-end">
-                    <a href="#" title="Inicio">Inicio</a>
-                    <a href="#" title="Torneios">Torneios</a>
-                    <a href="#" title="Area Lutador">Area Lutador</a>
-                    <a href="#" title="Politica de Privacidade">Politica de Privacidade</a>
+                    <a href="{{ route('index') }}" title="Inicio">Inicio</a>
+                    <a href="{{ route('torneios') }}" title="Torneios">Torneios</a>
+                    <a href="{{ route('atleta.area') }}" title="Area Lutador">Area Lutador</a>
+                    <a href="https://policies.google.com/privacy" title="Politica de Privacidade">Politica de Privacidade</a>
                 </div>
             </div>
         </div>
