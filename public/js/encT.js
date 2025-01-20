@@ -15,5 +15,6 @@ function ativarBtn() {
     if ((form[tam - 1].checked || form[tam - 2].checked) && (form[tam - 3].checked || form[tam - 4].checked)) {
         encBtn.disabled = false;
         encLink.disabled = false;
+        encLink.classList.remove('disabled');
     }
 }

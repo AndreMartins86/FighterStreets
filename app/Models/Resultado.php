@@ -19,6 +19,7 @@ class Resultado extends Model
 
     protected static function finalizar($id, $sexo, $peso, $faixa)
     {
+        //dd("break");        
         $resultadosQuery = Chave::where('campeonato_id', $id)
         ->where('sexo_id', $sexo)
         ->where('peso_id', $peso)

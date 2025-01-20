@@ -104,3 +104,7 @@ thead tr th {
 button[onclick="resetarDestaques()"] {
 	margin-bottom: 3px;
 }
+
+a.disabled { 
+	pointer-events: none; 
+}
