@@ -194,7 +194,7 @@ class Chave extends Model
        IFNULL(L2.equipe, 'Aguardando...') AS 'equipeLutador2', C.vencedor, C.sexo_id, C.peso_id, C.faixa_id FROM chaves C
        LEFT JOIN atletas L1 on C.lutador_1 = L1.id
        LEFT JOIN atletas L2 on C.lutador_2 = L2.id
-       WHERE C.campeonato_id = ? AND C.sexo_id = ? AND C.faixa_id = ? AND C.peso_id = ?
+       WHERE C.campeonato_id = ? AND C.sexo_id = ? AND C.peso_id = ? AND C.faixa_id = ?
        ORDER BY numeroLuta;",
       [$id, $IDs[0], $IDs[1], $IDs[2]]
     );
@@ -245,9 +245,9 @@ class Chave extends Model
     $s = DB::table('sexos')->where('sexo', $sexo)->value('id');
     $p = DB::table('pesos')->where('peso', $peso)->value('id');
     $f = DB::table('faixas')->where('faixa', $faixa)->value('id');
-    $vetor = [$s, $p, $f];
-
-    return $vetor;
+    
+    return [$s, $p, $f];
+  
   }
 
   protected function getValores($sexo, $peso, $faixa): array
@@ -255,9 +255,9 @@ class Chave extends Model
     $s = DB::table('sexos')->where('id', $sexo)->value('sexo');
     $p = DB::table('pesos')->where('id', $peso)->value('peso');
     $f = DB::table('faixas')->where('id', $faixa)->value('faixa');
-    $vetor = [strtolower($s), strtolower($p), strtolower($f)];
+    
+    return [strtolower($s), strtolower($p), strtolower($f)];
 
-    return $vetor;
   }
 
   protected function salvandoChaves(Request $req)

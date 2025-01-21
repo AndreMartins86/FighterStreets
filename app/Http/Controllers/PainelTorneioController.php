@@ -318,7 +318,7 @@ class PainelTorneioController extends Controller
     // }
 
     public function salvarChaves(Request $req)
-    {
+    {        
         // http://127.0.0.1:8000/painel-chaves/6/feminino/leve/marrom
         // http://127.0.0.1:8000/painel-torneios
         //sexo, $peso, $faixa): array
@@ -341,6 +341,7 @@ WHERE campeonato_id = 6 AND sexo_id = 1 AND faixa_id = 1 AND peso_id = 1;
         $IDs = Chave::getValores($req->sID, $req->pID, $req->fID);
         Chave::salvandoChaves($req);
         Chave::avancarChaves($req);
+
 
         //dd($IDs);
         return redirect()->route(

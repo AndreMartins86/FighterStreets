@@ -17,21 +17,21 @@ class CampeonatoFactory extends Factory
     public function definition(): array
     {
         $titulos = [
-            'Campeonato Regional Santista 2023',
-            'Torneio Estadual Infantil 2024',
-            'Jiu-Jitsu Masters 2023',
+            'Campeonato Regional Santista 2025',
+            'Torneio Estadual Infantil 2025',
+            'Jiu-Jitsu Masters 2025',
             'Liga Jiu-Jitsu de Pindamonhangaba',
-            'Torneio de Jiu-Jitsu Praia Grande 2023',
-            'Torneio Federação Paulista de Jiu-Jitsu 2023',            
-            'MMA Masters 2023',
+            'Torneio de Jiu-Jitsu Praia Grande 2025',
+            'Torneio Federação Paulista de Jiu-Jitsu 2025',            
+            'MMA Masters 2025',
             'Rio vs São Paulo MMA III',
-            'Death Cage 2023',
+            'Death Cage 2025',
             'Mortal Kombat II',
-            'Maia Championship Nacional 2023',
-            'Torneio Federação Carioca de Jiu-Jitsu 2023',
+            'Maia Championship Nacional 2025',
+            'Torneio Federação Carioca de Jiu-Jitsu 2025',
             'Fists of Fury',
             'Torneio Federação Mineira de Jiu-Jitsu',
-            'Street Fighter 2024'
+            'Street Fighter 2025'
         ];
 
         $imagem = [
@@ -46,7 +46,8 @@ class CampeonatoFactory extends Factory
             'Santos',
             'São Vicente',
             'São Paulo',
-            'Rio de Janeiro'
+            'Rio de Janeiro',
+            'Belo Horizonte'
         ];
 
 //id titulo imagem cidade estado_id data sobre informacoes ginasio tipo_id fase_id status
@@ -54,9 +55,9 @@ class CampeonatoFactory extends Factory
         return [
             'titulo' => $titulos[rand(0, 14)],
             'imagem' => $imagem[rand(0, 3)],
-            'cidade' => $cidades[rand(0 , 4)],
+            'cidade' => $cidades[rand(0 , 5)],
             'estado_id' => rand(1, 27),
-            'data' => fake()->dateTimeBetween('now', '+3 months'),
+            'data' => fake()->dateTimeBetween('now', '+6 months'),
             'sobre' => fake()->text(),
             'informacoes' => fake()->text(),
             'ginasio' => ucwords(fake()->word()),
