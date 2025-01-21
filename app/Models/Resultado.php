@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use LDAP\Result;
 
 class Resultado extends Model
 {
@@ -28,23 +29,17 @@ class Resultado extends Model
         ->limit(2)
         ->get();
 
-        //dd($resultadosQuery[1]->vencedor);
-
         //campeonato_id	sexo_id	faixa_id ṕeso_id primeiroColocado segundoColocado terceiroColocado created_at updated_at
 
-        $resultado = new Resultado([
-            'campeonato_id' => $id,
+        $resultado =  Resultado::updateOrCreate(
+            ['campeonato_id' => $id,
             'sexo_id' => $sexo,
             'faixa_id' => $faixa,
-            'peso_id' => $peso,
-            'primeiroColocado' => $resultadosQuery[1]->vencedor,
+            'peso_id' => $peso],
+            ['primeiroColocado' => $resultadosQuery[1]->vencedor,
             'segundoColocado' => $resultadosQuery[1]->vencedor == $resultadosQuery[1]->lutador_1 ? $resultadosQuery[1]->lutador_2 : $resultadosQuery[1]->lutador_1,
-            'terceiroColocado' => $resultadosQuery[0]->vencedor,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        $resultado->save();
+            'terceiroColocado' => $resultadosQuery[0]->vencedor]
+        );
 
         if (Resultado::where('campeonato_id', $id)->count() > 7) {
             $camp = Campeonato::find($id);
