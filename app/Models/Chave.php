@@ -337,10 +337,37 @@ class Chave extends Model
         $chaves[($totalDisputas - 1)]->save();
       }
     }
+  }
 
+  protected static function btnEncerrar ($camp, $sexo, $peso, $faixa): bool
+  {
+    $IDs = self::getIDs($sexo, $peso, $faixa);
 
+    $totalAtletas = $camp->atletas()
+      ->where('sexo_id', $IDs[0])
+      ->where('peso_id', $IDs[1])
+      ->where('faixa_id', $IDs[2])
+      ->count();
 
+      $finais = [
+        0 => Chave::where('sexo_id', $IDs[0])
+        ->where('peso_id', $IDs[1])
+        ->where('faixa_id', $IDs[2])
+        ->where('campeonato_id', $camp->id)
+        ->where('numeroLuta', $totalAtletas)        
+        ->value('vencedor'),
+        1 => Chave::where('sexo_id', $IDs[0])
+        ->where('peso_id', $IDs[1])
+        ->where('faixa_id', $IDs[2])
+        ->where('campeonato_id', $camp->id)
+        ->where('numeroLuta', $totalAtletas - 1)        
+        ->value('vencedor')
+      ];
 
+      if ($finais[0] != NULL && $finais[1] != NULL) {
+        return true;
+      }      
+      return false;
   }
 
 }

@@ -297,10 +297,10 @@ class PainelTorneioController extends Controller
         $campeonato = Campeonato::find($id);
         $chaves = Chave::buscarChavesDetalhes($id, $sexo, $peso, $faixa);
         $contadorChaves = Chave::contadorChaves($campeonato, $sexo, $peso, $faixa);
-        //$fases = $this->contarFases($chaves);
+        $btn = Chave::btnEncerrar($campeonato, $sexo, $peso, $faixa);
         //dd($chaves);
 
-        return view('painel.chave_detalhes', compact('campeonato', 'chaves', 'contadorChaves'));
+        return view('painel.chave_detalhes', compact('campeonato', 'chaves', 'contadorChaves', 'btn'));
     }
 
     // private static function contarFases(Collection $chaves): int

@@ -125,13 +125,15 @@
 </form>
 </div>
 
+@if ($btn)
 <div class="container mt-3 mb-3">
     <div class="row">
         <div class="col-12 text-center">
             <a id="encLink" class="disabled" href="{{ route('painel-finalizarTorneio', [$campeonato->id, $chaves[0]->sexo_id, $chaves[0]->peso_id, $chaves[0]->faixa_id]) }}" disabled><button type="submit" class="btn btn-primary my-3" id="encBtn" disabled>Encerrar Torneio</button></a>            
         </div>
     </div>
-</div>
+</div>    
+@endif
 
 @push('encT')
 <script src="/js/encT.js"></script>
