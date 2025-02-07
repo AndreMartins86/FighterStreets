@@ -5,7 +5,7 @@
 <div class="container-fluid mt-3 mb-3">
     <div class="row">
         <div class="col-6">
-            <a href="{{ url()->previous() }}"><button class="btn btn-primary">< Voltar</button></a>            
+            <a href="{{ url()->previous() }}"><button class="btn btn-primary">< Voltar</button></a>
         </div>
         <div class="col-6 text-end">
             <button class="btn btn-primary">Exportar para PDF</button>

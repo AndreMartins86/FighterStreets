@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\InscricaoRealizada;
 use App\Models\Atleta;
 use App\Models\Campeonato;
+use App\Models\Resultado;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -100,12 +101,18 @@ class AreaController extends Controller
         return redirect()->route('atleta.area');
     }
 
-    public function atletaCertificado(string $campeonat, string $atlet): View
+    public function atletaCertificado(string $camp): View
     {
         //TODO
         //checagens
-        $campeonato = Campeonato::find($campeonat);
-        $atleta = Atleta::find($atlet);
+        // U+00BA
+        $campeonato = Campeonato::find($camp);
+        $atleta = Atleta::find(auth()->user()->id);
+        $res = Resultado::posicaoAtleta($campeonato, $atleta);
+
+        if ($res) {
+            return view('area.certificado_vitoria', compact('campeonato', 'atleta', 'res'));            
+        }
 
         return view('area.certificado_participacao', compact('campeonato', 'atleta'));
         

@@ -5,7 +5,7 @@
 <div class="container-fluid mt-3 mb-3">
     <div class="row">
         <div class="col-6">
-            <button class="btn btn-primary">< Voltar</button>
+            <a href="{{ url()->previous() }}"><button class="btn btn-primary">< Voltar</button></a>
         </div>
         <div class="col-6 text-end">
             <button class="btn btn-primary">Exportar para PDF</button>
@@ -21,10 +21,11 @@
     </div>
 
     <div class="row my-3 mx-3">
-        <p> Este certificado é concedido a João Veiga, que foi vencedor do Campeonato Regional Santista, realizado
-             em Santos-SP, no dia 21/11/2023, na faixa Marrom, no peso Pesado.</p>
+        <p> Este certificado é concedido a {{ $atleta->nome }}, que foi vencedor do Campeonato Regional Santista, realizado
+             em {{ $campeonato->getLocal() }}, no dia {{ $campeonato->getData() }}, na {{ $atleta->getFaixa() }},
+              no peso {{ $atleta->getPeso() }}.</p>
 
-             <p>Resultado: 1º Lugar</p>
+             <p>Resultado: {{ $res }}</p>
 
              <p>Agradecemos pela sua participação!</p>
     </div>
@@ -34,7 +35,7 @@
 
     <div class="row my-3 mx-3">
         <div class="col-6">
-            01/12/2023
+            {{ date('d/m/Y') }}
         </div>
 
         <div class="col-6 text-center">

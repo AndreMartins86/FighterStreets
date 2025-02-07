@@ -45,7 +45,7 @@
                           </a>
                         </td>
                         <td>
-                          <a href="{{ route('atleta.certificado', ['campeonato' => $campeonato->id, 'atleta' => auth()->user()->id]) }}">
+                          <a href="{{ route('atleta.certificado', $campeonato->id) }}">
                             <button type="button" class="btn btn-primary">Certificado</button>
                           </a>
                         </td>

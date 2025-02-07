@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use LDAP\Result;
+use Illuminate\Database\Eloquent\Builder;
 
 class Resultado extends Model
 {
@@ -60,6 +61,30 @@ class Resultado extends Model
             WHERE campeonato_id = ?;",
             [$id]
         );
+    }
+
+    protected static function posicaoAtleta($campeonato, $atleta): string | bool
+    {
+        $res = Resultado::where('campeonato_id', $campeonato->id)
+        ->where(function (Builder $query) use ($atleta) {
+            $query->orWhere('primeiroColocado', $atleta->id)
+            ->orWhere('segundoColocado', $atleta->id)
+            ->orWhere('terceiroColocado', $atleta->id);
+          })->get();
+                    
+          
+          if ($res->count() > 0) {
+            if (array_keys($res[0]->getAttributes(), $atleta->id == 'primeiroColocado')) {
+                return '1º Lugar';
+            } elseif (array_keys($res[0]->getAttributes(), $atleta->id == 'segundoColocado')) {
+                return '2º Lugar';
+            } else {
+                return '3º Lugar';
+            }            
+          }
+
+          return false;
+        
     }
 
 

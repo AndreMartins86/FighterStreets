@@ -54,7 +54,7 @@ Route::middleware('auth:webatletas')->group(function () {
 
     Route::get('/confirmado/{id}', [AreaController::class, 'atletaConfirmado'])->name('atleta.confirmado');
     
-    Route::get('/certificado/{campeonato}/{atleta}', [AreaController::class, 'atletaCertificado'])->name('atleta.certificado');
+    Route::get('/certificado/{campeonato}', [AreaController::class, 'atletaCertificado'])->name('atleta.certificado');
 });
 
 
