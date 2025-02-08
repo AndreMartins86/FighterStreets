@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Mail;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AreaController extends Controller
 {
@@ -114,8 +115,19 @@ class AreaController extends Controller
             return view('area.certificado_vitoria', compact('campeonato', 'atleta', 'res'));            
         }
 
-        return view('area.certificado_participacao', compact('campeonato', 'atleta'));
+        return view('area.certificado_participacao', compact('campeonato', 'atleta'));        
+    }
+
+    public function exportarPDF(string $camp)
+    {
+        $campeonato = Campeonato::find($camp);
+        $atleta = Atleta::find(auth()->user()->id);
+        $res = Resultado::posicaoAtleta($campeonato, $atleta);
         
+        $pdf = PDF::loadView('area.certificado_vitoria', compact('campeonato', 'atleta', 'res'));
+        
+        return $pdf->download('certificado.pdf');
+
     }
 
 

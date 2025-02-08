@@ -7,8 +7,8 @@
         <div class="col-6">
             <a href="{{ url()->previous() }}"><button class="btn btn-primary">< Voltar</button></a>
         </div>
-        <div class="col-6 text-end">
-            <button class="btn btn-primary">Exportar para PDF</button>
+        <div class="col-6 text-end">            
+            <a href="{{ route('atleta.exportarPDF', $campeonato->id) }}"><button class="btn btn-primary">Exportar para PDF</button></a>
         </div>
     </div>
 </div>

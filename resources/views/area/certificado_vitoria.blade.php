@@ -21,7 +21,7 @@
     </div>
 
     <div class="row my-3 mx-3">
-        <p> Este certificado é concedido a {{ $atleta->nome }}, que foi vencedor do Campeonato Regional Santista, realizado
+        <p> Este certificado é concedido a {{ $atleta->nome }}, que foi vencedor do {{ $campeonato->titulo }}, realizado
              em {{ $campeonato->getLocal() }}, no dia {{ $campeonato->getData() }}, na {{ $atleta->getFaixa() }},
               no peso {{ $atleta->getPeso() }}.</p>
 
