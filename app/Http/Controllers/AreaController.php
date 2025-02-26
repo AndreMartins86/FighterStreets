@@ -123,9 +123,13 @@ class AreaController extends Controller
         $campeonato = Campeonato::find($camp);
         $atleta = Atleta::find(auth()->user()->id);
         $res = Resultado::posicaoAtleta($campeonato, $atleta);
-        
-        $pdf = PDF::loadView('area.certificado_vitoria', compact('campeonato', 'atleta', 'res'));
-        
+
+        if ($res) {
+            $pdf = PDF::loadView('area.vitoria_impresso', compact('campeonato', 'atleta', 'res'));
+        } else {
+            $pdf = PDF::loadView('area.participacao_impresso', compact('campeonato', 'atleta', 'res'));
+        }
+
         return $pdf->download('certificado.pdf');
 
     }

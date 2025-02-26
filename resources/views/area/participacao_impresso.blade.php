@@ -1,21 +1,22 @@
 @extends('app')
 @section('conteudo')
-@include('layout.navarea')
 
 <div class="container-fluid mt-3 mb-3">
     <div class="row">
         <div class="col-6">
-            <a href="{{ url()->previous() }}"><button class="btn btn-primary">< Voltar</button></a>
+            
         </div>
         <div class="col-6 text-end">            
-            <a href="{{ route('atleta.exportarPDF', $campeonato->id) }}"><button class="btn btn-primary">Exportar para PDF</button></a>
+          
         </div>
     </div>
 </div>
 
-<div class="container-fluid mt-3 mb-3 border border-primary p-5">
+<div class="container-fluid mt-5 mb-5 border border-primary p-5"
+ style='border: 1px black solid; padding-bottom: 200px; padding-top: 1px;'>
     <div class="row">
         <div class="col-12">
+            <img src="img/sf.png" alt="logo" class="d-inline-block aligh-text-top" width="35px">
             <h3 class="text-center mb-3">Fighter Streets</h3>
         </div>
     </div>
@@ -42,5 +43,5 @@
     </div>
 </div>
 
-@include('layout.footerarea')
+
 @endsection

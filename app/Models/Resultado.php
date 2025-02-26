@@ -71,12 +71,12 @@ class Resultado extends Model
             ->orWhere('segundoColocado', $atleta->id)
             ->orWhere('terceiroColocado', $atleta->id);
           })->get();
-                    
+
           
           if ($res->count() > 0) {
-            if (array_keys($res[0]->getAttributes(), $atleta->id == 'primeiroColocado')) {
+            if (array_keys($res[0]->getAttributes(), $atleta->id)[0] == 'primeiroColocado') {
                 return '1º Lugar';
-            } elseif (array_keys($res[0]->getAttributes(), $atleta->id == 'segundoColocado')) {
+            } elseif (array_keys($res[0]->getAttributes(), $atleta->id)[0] == 'segundoColocado') {
                 return '2º Lugar';
             } else {
                 return '3º Lugar';
