@@ -45,7 +45,7 @@ class Resultado extends Model
         if (Resultado::where('campeonato_id', $id)->count() > 7) {
             $camp = Campeonato::find($id);
             $camp->fase_id = 3;
-            $camp->save();            
+            $camp->save();
         }       
     }
 
@@ -58,7 +58,8 @@ class Resultado extends Model
             LEFT JOIN `atletas` AS p ON res.primeiroColocado = p.id
             LEFT JOIN `atletas` AS s ON res.segundoColocado = s.id
             LEFT JOIN `atletas` AS t ON res.terceiroColocado = t.id 
-            WHERE campeonato_id = ?;",
+            WHERE campeonato_id = ?
+            ORDER BY res.faixa_id, res.peso_id, res.sexo_id;",
             [$id]
         );
     }
