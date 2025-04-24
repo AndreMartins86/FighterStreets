@@ -27,11 +27,6 @@
             </div>	
 </div>
 
-@php
-    //dd($resultados);
-@endphp
-
-
 <div class="container">
     <div class="row mb-3 mt-3">
         <div class="col-12 text-center">
